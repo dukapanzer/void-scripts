@@ -15,5 +15,7 @@ while task.wait() do
 		
 		local play_anim = humanoid:LoadAnimation(animation)
 		play_anim:Play()
+	else
+		print("not in air")
 	end
 end
