@@ -8,11 +8,12 @@ local UIS = game:GetService("UserInputService")
 
 local space_held = false
 
-if humanoid.FloorMaterial == Enum.Material.Air then
-	local animation = Instance.new("Animation")
-	animation.AnimationId = "rbxassetid://18654336853"
-  animation.Parent = workspace
-	
-	local play_anim = humanoid:LoadAnimation(animation)
-	play_anim:Play()
+while task.wait() do
+	if humanoid.FloorMaterial == Enum.Material.Air then
+		local animation = Instance.new("Animation")
+		animation.AnimationId = "rbxassetid://18654336853"
+		
+		local play_anim = humanoid:LoadAnimation(animation)
+		play_anim:Play()
+	end
 end
