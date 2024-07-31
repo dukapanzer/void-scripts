@@ -1,5 +1,5 @@
 local uis = game:GetService("UserInputService")
-local replicatedStorage = game:GetService("ReplicatedStorage")
+local replicatedStorage = game:GetService("ReplicatedFirst")
 local plr = game:GetService("Players").LocalPlayer
 
 local char = plr.Character or plr.CharacterAdded:wait()
