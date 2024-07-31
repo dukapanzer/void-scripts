@@ -1,5 +1,5 @@
 local uis = game:GetService("UserInputService")
-local replicatedstorage = game:GetService("ReplicatedStorage")
+local replicatedstorage = game:GetService("ReplicatedFirst")
 
 local remotes = replicatedstorage.remotes
 local combat_re = remotes.combat
