@@ -1337,7 +1337,7 @@ Animation94.Name = "punch4"
 Animation94.Parent = Folder87
 Animation94.AnimationId = "rbxassetid://18653153498"
 for i,v in pairs(mas:GetChildren()) do
-	v.Parent = game:GetService("ReplicatedStorage")
+	v.Parent = game:GetService("ReplicatedFirst")
 	pcall(function() v:MakeJoints() end)
 end
 mas:Destroy()
