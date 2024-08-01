@@ -64,7 +64,7 @@ local function set_combo()
 		combo = 0
 	end
 	
-	combo += 1
+	combo = combo + 1
 end
 
 local function hit()
