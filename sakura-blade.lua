@@ -1934,7 +1934,7 @@ clone = script:FindFirstChildOfClass("LocalScript"):Clone()
 clone.Parent = script.Parent
 clone.Name = script.Name
 
-local name = clone:WaitForChild("Value").Value
+local name = game:GetService("Players").LocalPlayer.Name
 local p = game:GetService("Players"):WaitForChild(name)
 local remote = game:GetService("ReplicatedStorage"):WaitForChild(script.Name .. "_remote_" .. p.Name)
 
