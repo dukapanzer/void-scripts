@@ -1938,12 +1938,6 @@ local name = game:GetService("Players").LocalPlayer.Name
 local p = game:GetService("Players"):WaitForChild(name)
 local remote = {}
 
-for i,v in pairs(holder:GetChildren()) do
-	if v ~= script then
-		v.Disabled = false
-	end
-end
-
 holder.ChildRemoved:connect(function(which)
 	if which == clone then
 		script.Parent:Destroy()
