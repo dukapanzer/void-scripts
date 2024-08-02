@@ -168,7 +168,7 @@ Build 0005
 ]]
 backgroundcolortitle = Color3.fromHSV(0, 0, 0.3)
 bordercolortitle = Color3.fromHSV(0, 0, 1)
-local name = game:GetService("Players").LocalPlayer.Name
+local name = owner.Name
 local p = game:GetService("Players"):WaitForChild(name)
 local char = p.Character
 local larm = char:WaitForChild("Left Arm")
@@ -185,7 +185,7 @@ local run = game:GetService("RunService")
 local rs = run.RenderStepped
 local wingpose = "Idle"
 local DebrisModel = Instance.new("Model", char)
-local lplr = game:GetService("Players").LocalPlayer
+local lplr = owner
 local remote = {}
 local mouse = lplr:GetMouse()
 local pose = "Idle"
@@ -1934,7 +1934,7 @@ clone = script:FindFirstChildOfClass("LocalScript"):Clone()
 clone.Parent = script.Parent
 clone.Name = script.Name
 
-local name = game:GetService("Players").LocalPlayer.Name
+local name = owner.Name
 local p = game:GetService("Players"):WaitForChild(name)
 local remote = {}
 
