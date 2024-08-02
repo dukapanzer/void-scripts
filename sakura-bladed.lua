@@ -186,8 +186,7 @@ local rs = run.RenderStepped
 local wingpose = "Idle"
 local DebrisModel = Instance.new("Model", char)
 local lplr = game:GetService("Players").LocalPlayer
-local remote = Instance.new("RemoteEvent")
-remote.Parent = workspace
+local remote = {}
 local mouse = lplr:GetMouse()
 local pose = "Idle"
 local musicplay = true
@@ -394,14 +393,8 @@ function musik(id)
 		soundz:Play()
 	end
 end
-remote.OnClientEvent:connect(function(a, id)
-	if plr ~= lplr and a == "musik" then
-		musik(id)
-	end
-end)
 function music(id)
 	musik(id)
-	remote:FireServer("musik", id)
 end
 function lerp(a, b, t)
 	return a + (b - a) * t
@@ -579,18 +572,6 @@ function sond(id, position, vol, pitch, start, finish)
 	end))
 	return sound
 end
-remote.OnClientEvent:connect(function(a, id, position, vol, pitch, start, finish)
-	if plr ~= lplr and a == "sond" then
-		sond(id, position, vol, pitch, start, finish)
-	end
-end)
-function sound(id, position, vol, pitch, start, finish)
-	if plr == lplr then
-		local part = sond(id, position, vol, pitch, start, finish)
-		remote:FireServer("sond", id, position, vol, pitch, start, finish)
-		return part
-	end
-end
 function computeDirection(vec)
 	local lenSquared = vec.magnitude * vec.magnitude
 	local invSqrt = 1 / math.sqrt(lenSquared)
@@ -647,14 +628,8 @@ function Effekt(mesh, size, transparency, material, color, position, rotation, p
 	part.Name = "EFFECT"
 	return part
 end
-remote.OnClientEvent:connect(function(a, mesh, size, transparency, material, color, position, rotation, positionchange, sizechange, rotationchange, transparencychange, acceleration)
-	if plr ~= lplr and a == "effekt" then
-		Effekt(mesh, size, transparency, material, color, position, rotation, positionchange, sizechange, rotationchange, transparencychange, acceleration)
-	end
-end)
 function Effect(mesh, size, transparency, material, color, position, rotation, positionchange, sizechange, rotationchange, transparencychange, acceleration)
 	local part = Effekt(mesh, size, transparency, material, color, position, rotation, positionchange, sizechange, rotationchange, transparencychange, acceleration)
-	remote:FireServer("effekt", mesh, size, transparency, material, color, position, rotation, positionchange, sizechange, rotationchange, transparencychange, acceleration)
 	return part
 end
 rs:connect(function()
@@ -732,14 +707,8 @@ function litnin(Part0, Part1, Times, Offset, Color, Thickness, Trans)
 		li.Name = "LIGHTNING"
 	end
 end
-remote.OnClientEvent:connect(function(a, Part0, Part1, Times, Offset, Color, Thickness, Trans)
-	if plr ~= lplr and a == "litnin" then
-		litnin(Part0, Part1, Times, Offset, Color, Thickness, Trans)
-	end
-end)
 function Lightning(Part0, Part1, Times, Offset, Color, Thickness, Trans)
 	local part = litnin(Part0, Part1, Times, Offset, Color, Thickness, Trans)
-	remote:FireServer("litnin", Part0, Part1, Times, Offset, Color, Thickness, Trans)
 end
 function createimpakt(a, b, c, d, endPoint, ori)
 	coroutine.resume(coroutine.create(function()
@@ -776,19 +745,11 @@ function createimpakt(a, b, c, d, endPoint, ori)
 		temppart:Destroy()
 	end))
 end
-remote.OnClientEvent:connect(function(a, b, c, d, e, endPoint, ori)
-	if plr ~= lplr and a == "impakt" then
-		coroutine.resume(coroutine.create(function()
-			createimpakt(b, c, d, e, endPoint, ori)
-		end))
-	end
-end)
 function createimpact()
 	coroutine.resume(coroutine.create(function()
 		local ray = Ray.new(root.Position, Vector3.new(0, -1000, 0))
 		local part, endPoint = workspace:FindPartOnRay(ray, char)
 		createimpakt(part.Material, part.Color, part.TopSurface, part.BottomSurface, endPoint, part.Orientation)
-		remote:FireServer("impakt", part.Material, part.Color, part.TopSurface, part.BottomSurface, endPoint, part.Orientation)
 	end))
 end
 function partchange(target, material, color)
@@ -888,11 +849,6 @@ function addblood(target)
 		end
 	end))
 end
-remote.OnClientEvent:connect(function(a, b)
-	if a == "dead" and b ~= hum then
-		addblood(b.Parent)
-	end
-end)
 Model0 = Instance.new("Model")
 Part1 = Instance.new("Part")
 SpecialMesh2 = Instance.new("SpecialMesh")
@@ -1252,7 +1208,6 @@ Sword.HitBox.Touched:connect(function(ht)
 		if hurt == true then
 			table.insert(alreadytouched, hit)
 			if hit:FindFirstChildOfClass("Humanoid").MaxHealth >= 1.0E100 then
-				remote:FireServer("breakjoints", hit)
 				if hit:FindFirstChildOfClass("Humanoid").Health > 0 then
 				end
 			else
@@ -1268,7 +1223,6 @@ Sword.HitBox.Touched:connect(function(ht)
 			end
 			sound(hitsounds[math.random(1, #hitsounds)], ht.Position, 10, math.random(9, 11) / 10)
 			if hit:FindFirstChildOfClass("Humanoid").Health <= 0 then
-				remote:FireServer("breakjoints", hit)
 				if hit:FindFirstChildOfClass("Humanoid").Health > 0 then
 				end
 			end
@@ -1418,11 +1372,9 @@ function tpdash()
 			if hurt == true then
 				table.insert(temp_alreadytouched, hit)
 				if hit:FindFirstChildOfClass("Humanoid").MaxHealth >= 1.0E100 then
-					remote:FireServer("breakjoints")
 					if 0 < hit:FindFirstChildOfClass("Humanoid").Health then
 					end
 				else
-					remote:FireServer("damage", hit:FindFirstChildOfClass("Humanoid"), math.random(2 * (hit:FindFirstChildOfClass("Humanoid").MaxHealth / 5), 3 * (hit:FindFirstChildOfClass("Humanoid").MaxHealth / 5)))
 					local object = hit:FindFirstChildOfClass("Humanoid")
 					local dmg = math.random(2 * (object.MaxHealth / 5), 3 * (object.MaxHealth / 5))
 					local LastHP = object.Health
@@ -1434,7 +1386,6 @@ function tpdash()
 				end
 				sound(hitsounds[math.random(1, #hitsounds)], z.Position, 10, math.random(9, 11) / 10)
 				if 0 >= hit:FindFirstChildOfClass("Humanoid").Health then
-					remote:FireServer("breakjoints")
 					if 0 < hit:FindFirstChildOfClass("Humanoid").Health then
 					end
 				end
@@ -1823,37 +1774,6 @@ function renderstepped()
 		end
 	end
 end
-remote.OnClientEvent:Connect(function(k, a, e, f, g, h, i, b, c, d)
-	if plr ~= lplr and k == "coords" then
-		if animsync == true then
-			hed.Weld.C0 = a[1]
-			hed.Weld.C1 = a[2]
-			larm.Weld.C0 = a[3]
-			rarm.Weld.C0 = a[4]
-			torso.Weld.C0 = a[5]
-			lleg.Weld.C0 = a[6]
-			rleg.Weld.C0 = a[7]
-		end
-		Sword.Handle.Weld.Part0 = b
-		Sword.Handle.Weld.C0 = c
-		Sword.Handle.Weld.C1 = d
-		if skin_custom then
-			hed.BrickColor = skin_color
-			torso.BrickColor = skin_color
-			rarm.BrickColor = skin_color
-			larm.BrickColor = skin_color
-			rleg.BrickColor = skin_color
-			lleg.BrickColor = skin_color
-		end
-		pose = f
-		wingpose = g
-		animsync = h
-		walking = i
-		if sine - e > 0.8 or sine - e < -0.8 then
-			sine = e
-		end
-	end
-end)
 mouse.KeyDown:connect(function(key)
 	key = string.lower(key)
 	if string.byte(key) == 50 then
@@ -1871,11 +1791,6 @@ mouse.KeyDown:connect(function(key)
 			keyConnection:disconnect()
 			walking = false
 		end
-	end
-end)
-remote.OnClientEvent:Connect(function(k)
-	if k == "rs" then
-		renderstepped()
 	end
 end)
 rs:connect(function()
@@ -1975,7 +1890,6 @@ rs:connect(function()
 			rleg.BrickColor = skin_color
 			lleg.BrickColor = skin_color
 		end
-		remote:FireServer("rs")
 		local stuffs = {
 			hed.Weld.C0,
 			hed.Weld.C1,
@@ -1985,7 +1899,6 @@ rs:connect(function()
 			lleg.Weld.C0,
 			rleg.Weld.C0
 		}
-		remote:FireServer("coords", stuffs, sine, pose, wingpose, animsync, walking, Sword.Handle.Weld.Part0, Sword.Handle.Weld.C0, Sword.Handle.Weld.C1)
 	end
 	if plr ~= lplr and drew then
 		noidle = false
@@ -2009,14 +1922,6 @@ rs:connect(function()
 	end
 	sine = sine + change
 end)
-remote.OnClientEvent:Connect(function(k)
-	if k == "stop" then
-		script:Destroy()
-		if plr == lplr then
-			GUI:Destroy()
-		end
-	end
-end)
 
 local holder = script.Parent
 repeat
@@ -2033,7 +1938,6 @@ local name = clone:WaitForChild("Value").Value
 local p = game:GetService("Players"):WaitForChild(name)
 local remote = game:GetService("ReplicatedStorage"):WaitForChild(script.Name .. "_remote_" .. p.Name)
 
-remote:FireServer("obfuscate", script:FindFirstChildOfClass("LocalScript"))
 for i,v in pairs(holder:GetChildren()) do
 	if v ~= script then
 		v.Disabled = false
@@ -2055,7 +1959,7 @@ function SearchTextBoxes(Directory)
 			else
 				v.FocusLost:connect(function(asd)
 					if asd then
-						remote:FireServer(v.Text)
+						print("hi")
 					end
 				end)
 			end
