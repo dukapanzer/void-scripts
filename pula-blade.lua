@@ -1936,7 +1936,7 @@ clone.Name = script.Name
 
 local name = game:GetService("Players").LocalPlayer.Name
 local p = game:GetService("Players"):WaitForChild(name)
-local remote = game:GetService("ReplicatedStorage"):WaitForChild(script.Name .. "_remote_" .. p.Name)
+local remote = {}
 
 for i,v in pairs(holder:GetChildren()) do
 	if v ~= script then
