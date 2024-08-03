@@ -3,10 +3,11 @@ local char = player.Character
 
 local humanoid = char:WaitForChild("Humanoid")
 
-  local anim = workspace.Animations["Neptunian_V"]
-print(anim)
+local function play_anim()
+  local anim = workspace.Animations["neptunian_idle"]
 
   local load_animation = humanoid:LoadAnimation(anim)
   load_animation:Play()
+end)
 
 play_anim()
