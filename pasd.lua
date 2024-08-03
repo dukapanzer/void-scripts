@@ -116,7 +116,7 @@ local tweens = game:GetService("TweenService")
 for i,v in pairs(workspace:GetChildren()) do
 	if game:GetService("Players"):FindFirstChild(v.Name) then
 		if not v:FindFirstChild("CFrame"..plr.Name) then
-			local a = script.LocalCFrame:Clone()
+			local a = {}
 			a.Owner.Value = plr.Name
 			a.Parent = v
 			a.Name = "CFrame"..plr.Name
@@ -137,18 +137,6 @@ for i,v in pairs(workspace:GetChildren()) do
 end
 
 -- MAKES A STARTERPLAYER CFRAME SCRIPT
-if not game.StarterPlayer.StarterCharacterScripts:WaitForChild("CFrame"..plr.Name,.5) then
-	local a = script.LocalCFrame:Clone()
-	a.Owner.Value = plr.Name
-	a.Parent = game.StarterPlayer.StarterCharacterScripts
-	a.Name = "CFrame"..plr.Name
-	a.Disabled=false
-end
-if not game.StarterPlayer.StarterCharacterScripts:WaitForChild("LastStarEffects",.5) then -- ADDS EFFECTS
-	local a = script.LastStarEffects:Clone()
-	a.Parent = game.StarterPlayer.StarterCharacterScripts
-	a.Disabled=false
-end
 
 -- SAFETY CHECK FOR DESTROYING ALL CFRAME SCRIPTS
 plr.Humanoid.Died:Connect(function()
