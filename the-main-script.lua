@@ -9,7 +9,7 @@ local animations = replicatedstorage.animations
 local vfxeffects = replicatedstorage.vfxeffects
 
 local modules = replicatedstorage.modules
-local hitbox_service = require(modules.MuchachoHitbox)
+--local hitbox_service = require(modules.MuchachoHitbox)
 
 local function change_combo(char)
 	local curr_combo = char:GetAttribute("combo")
@@ -96,9 +96,11 @@ combat_re.OnServerEvent:connect(function(plr, args)
 
 	char:SetAttribute("punching", true)
 
+	
+	--[[
 	local hitbox_params = OverlapParams.new()
-	hitbox_params.FilterType = Enum.RaycastFilterType.Exclude
-	hitbox_params.FilterDescendantsInstances = {char}
+	--hitbox_params.FilterType = Enum.RaycastFilterType.Exclude
+	--hitbox_params.FilterDescendantsInstances = {char}
 
 	local hitbox = hitbox_service.CreateHitbox()
 	spawn(function()
@@ -107,8 +109,8 @@ combat_re.OnServerEvent:connect(function(plr, args)
 			task.wait()
 		end
 	end)
-	hitbox.Offset = CFrame.new(0, -0.5, -3)
-	hitbox.Size = Vector3.new(4.5, 5, 4.5)
+	--hitbox.Offset = CFrame.new(0, -0.5, -3)
+	--hitbox.Size = Vector3.new(4.5, 5, 4.5)
 	hitbox.OverlapParams = hitbox_params
 
 	hitbox.Touched:Connect(function(hit, hit_humanoid)
@@ -143,6 +145,7 @@ combat_re.OnServerEvent:connect(function(plr, args)
 	play_anim:GetMarkerReachedSignal("hitreg"):Connect(function()
 		hitbox:Start()
 	end)
+	]]
 
 	play_anim:GetMarkerReachedSignal("end"):Connect(function()
 		hitbox:Stop()
