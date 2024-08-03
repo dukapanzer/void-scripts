@@ -32,9 +32,11 @@ C3R,C3H,C3N = Color3.fromRGB,Color3.fromHSV,Color3.new
 
 local main_Folder = LoadAssets(18785049442)
 
-for i,v in pairs(main_Folder.Folder:GetChildren()) do
-	v.Parent = script
-end
+local Assets = LoadAssets(18785049442) -- replace asset id
+table.foreach(Assets:Get("Folder"):GetChildren(), function(i,v) -- replace foldername
+	local lol = v:Clone()
+	lol.Parent = script
+end)
 
 local plr = owner.Character
 plr.Humanoid.MaxHealth = 9e9
