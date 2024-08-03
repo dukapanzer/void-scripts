@@ -10,4 +10,4 @@ local function play_anim(animation)
   load_animation:Play()
 end
 
-play_animation("idle_anim")
+play_anim("idle_anim")
