@@ -8,6 +8,6 @@ local function play_anim()
 
   local load_animation = humanoid:LoadAnimation(anim)
   load_animation:Play()
-end)
+end
 
 play_anim()
