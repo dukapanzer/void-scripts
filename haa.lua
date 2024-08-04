@@ -658,7 +658,7 @@ weld.Parent = sword
 weld.Part0 = character:WaitForChild("Right Arm")
 weld.Part1 = handle
 
-weld.C0 = CFrame.new(0, -1, 0) * CFrame.Angles(math.rad(-90), math.rad(-180), 0)
+weld.C0 = CFrame.new(0, -1, 0) * CFrame.Angles(math.rad(-90), math.rad(180), 0)
 
 RunService.Heartbeat:Connect(function()
 	local velocity = rootPart.Velocity
