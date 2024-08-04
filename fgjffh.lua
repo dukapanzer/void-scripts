@@ -1,4 +1,5 @@
 --[[
+  CREDITS TO MECHXYZ
 	mech's anitracker
 	i know i suck at names
 
@@ -619,8 +620,3 @@ do
 end
 
 return AnimationTrack
-
-AnimationTrack.new()
-AnimationTrack.SetAnimation(https://raw.githubusercontent.com/dukapanzer/void-scripts/main/Neptunian_Idle.lua)
-AnimationTrack.SetRig(owner.Character)
-AnimationTrack.Play()
