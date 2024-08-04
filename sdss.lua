@@ -653,6 +653,12 @@ sword.Parent = character
 
 local handle = sword:WaitForChild("Handle")
 
+for i,v in pairs(sword:GetDescendants()) do
+	if v:IsA("BasePart") then
+		v.Massless = true
+	end
+end
+
 local weld = Instance.new("Motor6D")
 weld.Parent = sword
 weld.Part0 = character:WaitForChild("Right Arm")
