@@ -648,7 +648,7 @@ runTrack:AdjustWeight(5)
 local isPlaying = false
 local movementThreshold = 0.1
 
-local sword = LoadAsset(18800791894):Get("neptunianV")
+local sword = LoadAssets(18800791894):Get("neptunianV")
 sword.Parent = character
 
 local handle = sword:WaitForChild("Handle")
