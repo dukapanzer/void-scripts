@@ -636,8 +636,7 @@ idleTrack:setAnimation(idleAnimation)
 idleTrack:setRig(character)
 
 idleTrack.Looped = true
-idleTrack:AdjustWeight(5)
-idleTrack:Play()
+idleTrack:AdjustWeight(1)
 
 local runTrack = AnimationTrack.new()
 runTrack:setAnimation(runAnimation)
@@ -645,10 +644,19 @@ runTrack:setRig(character)
 
 runTrack.Looped = true
 runTrack:AdjustWeight(5)
-runTrack:Play()
 
 local isPlaying = false
 local movementThreshold = 0.1
+
+local sword = LoadAsset(18800791894):Get("neptunianV")
+sword.Parent = character
+
+local handle = sword:WaitForChild("Handle")
+
+local weld = Instance.new("Motor6D")
+weld.Parent = sword
+weld.Part0 = character:WaitForChild("Right Arm")
+weld.Part1 = handle
 
 RunService.Heartbeat:Connect(function()
 	local velocity = rootPart.Velocity
