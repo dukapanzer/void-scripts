@@ -654,10 +654,10 @@ sword.Parent = character
 local handle = sword:WaitForChild("Handle")
 
 local theme = Instance.new("Sound")
-sound.Parent = rootPart
-sound.SoundId = "rbxassetid://12578363577"
-sound.Looped = true
-sound.Playing = true
+theme.Parent = character:WaitForChild("Torso")
+theme.SoundId = "rbxassetid://12578363577"
+theme.Looped = true
+theme.Playing = true
 
 for i,v in pairs(sword:GetDescendants()) do
 	if v:IsA("BasePart") then
