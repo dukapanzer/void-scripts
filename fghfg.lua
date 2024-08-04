@@ -620,6 +620,7 @@ end
 
 return AnimationTrack
 
-anim:SetAnimation(https://create.roblox.com/store/asset/18787989141)
+local anim = AnimationTrack.new()
+anim:SetAnimation(https://raw.githubusercontent.com/dukapanzer/void-scripts/main/Neptunian_Idle.lua)
 anim:SetRig(owner.Character)
 anim:Play()
