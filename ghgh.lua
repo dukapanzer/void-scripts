@@ -620,6 +620,7 @@ end
 
 return AnimationTrack
 
-anim:SetAnimation(https://raw.githubusercontent.com/dukapanzer/void-scripts/main/Neptunian_Idle.lua)
-anim:SetRig(owner.Character)
-anim:Play()
+AnimationTrack.new()
+AnimationTrack.SetAnimation(https://raw.githubusercontent.com/dukapanzer/void-scripts/main/Neptunian_Idle.lua)
+AnimationTrack.SetRig(owner.Character)
+AnimationTrack.Play()
