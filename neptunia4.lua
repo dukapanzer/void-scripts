@@ -626,6 +626,26 @@ local HttpService = game:GetService("HttpService")
 local idleAnimation = loadstring(HttpService:GetAsync("https://raw.githubusercontent.com/dukapanzer/void-scripts/main/Neptunian_Idle_Reworked.lua", true))()
 local runAnimation = loadstring(HttpService:GetAsync("https://raw.githubusercontent.com/dukapanzer/void-scripts/main/Neptunian_Run.lua", true))()
 
+local attack1Animation = loadstring(HttpService:GetAsync("https://raw.githubusercontent.com/dukapanzer/void-scripts/main/Neptunian_Attack1.lua", true))()
+local attack2Animation = loadstring(HttpService:GetAsync("https://raw.githubusercontent.com/dukapanzer/void-scripts/main/Neptunian_Attack2.lua", true))()
+
+local mainFolder = Instance.new("Folder")
+mainFolder.Parent = game:GetService("LocalizationService")
+mainFolder.Name = player.Name .. "'s MainFolder"
+
+local remote = Instance.new("RemoteEvent")
+remote.Parent = mainFolder
+
+NLS([[
+local plr = game:GetService("Players").LocalPlayer
+local char = plr.Character
+
+local name = plr.Name
+
+local mainFolder = game:GetService("LocalizationService")[name .. "'s MainFolder"]
+print(mainFolder)
+]]
+
 local player = owner
 local character = player.Character
 local humanoid = character:WaitForChild("Humanoid")
