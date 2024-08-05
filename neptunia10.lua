@@ -655,6 +655,7 @@ local name = plr.Name
 
 local mainFolder = game:GetService("LocalizationService")[name .. "'s MainFolder"]
 local remote = mainFolder:WaitForChild("RemoteEvent")
+print("remote")
 
 mouse.Button1Down:connect(function()
 	remote:FireServer()
@@ -695,6 +696,7 @@ local movementThreshold = 0.1
 local combo = 0
 
 remote.OnServerEvent:connect(function()
+	print("sup")
 	combo = combo + 1
 
 	if combo == 1 then
