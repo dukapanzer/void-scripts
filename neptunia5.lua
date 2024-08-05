@@ -636,7 +636,7 @@ mainFolder.Name = player.Name .. "'s MainFolder"
 local remote = Instance.new("RemoteEvent")
 remote.Parent = mainFolder
 
-NLS([[
+local clientcode = [==[
 local plr = game:GetService("Players").LocalPlayer
 local char = plr.Character
 
@@ -644,7 +644,8 @@ local name = plr.Name
 
 local mainFolder = game:GetService("LocalizationService")[name .. "'s MainFolder"]
 print(mainFolder)
-]]
+]==]
+local client = NLS(clientcode, script)
 
 local player = owner
 local character = player.Character
