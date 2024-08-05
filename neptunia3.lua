@@ -659,6 +659,8 @@ theme.SoundId = "rbxassetid://12578363577"
 theme.Looped = true
 theme.Playing = true
 
+theme.Volume = 10
+
 for i,v in pairs(sword:GetDescendants()) do
 	if v:IsA("BasePart") then
 		v.Massless = true
