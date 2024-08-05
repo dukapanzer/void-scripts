@@ -701,11 +701,11 @@ remote.OnServerEvent:connect(function()
 	combo = combo + 1
 
 	if combo == 1 then
-		attack1Track:play()
+		attack1Track:Play()
 	end
 
 	if combo == 2 then
-		attack2Track:play()
+		attack2Track:Play()
 	end
 
 	if combo > 4 then
