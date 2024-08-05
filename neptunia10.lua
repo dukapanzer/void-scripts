@@ -641,15 +641,24 @@ mainFolder.Name = player.Name .. "'s MainFolder"
 local remote = Instance.new("RemoteEvent")
 remote.Parent = mainFolder
 
+humanoid.Died:connect(function()
+	mainFolder:Destroy()
+end)
+
 NLS([[
-print("aaa")
 local plr = game:GetService("Players").LocalPlayer
 local char = plr.Character
+
+local mouse = plr:GetMouse()
 
 local name = plr.Name
 
 local mainFolder = game:GetService("LocalizationService")[name .. "'s MainFolder"]
-print(mainFolder)
+local remote = mainFolder:WaitForChild("RemoteEvent")
+
+mouse.Button1Down:connect(function()
+	remote:FireServer()
+end)
 ]])
 
 local idleTrack = AnimationTrack.new()
@@ -664,10 +673,42 @@ runTrack:setAnimation(runAnimation)
 runTrack:setRig(character)
 
 runTrack.Looped = true
-runTrack:AdjustWeight(5)
+runTrack:AdjustWeight(2)
+
+local attack1Track = AnimationTrack.new()
+attack1Track:setAnimation(attack1Animation)
+attack1Track:setRig(character)
+
+attack1Track.Looped = false
+attack1Track:AdjustWeight(5)
+
+local attack2Track = AnimationTrack.new()
+attack2Track:setAnimation(attack2Animation)
+attack2Track:setRig(character)
+
+attack2Track.Looped = false
+attack2Track:AdjustWeight(5)
 
 local isPlaying = false
 local movementThreshold = 0.1
+
+local combo = 0
+
+remote.OnServerEvent:connect(function()
+	combo = combo + 1
+
+	if combo == 1 then
+		attack1Track:play()
+	end
+
+	if combo == 2 then
+		attack2Track:play()
+	end
+
+	if combo > 4 then
+		combo = 0
+	end
+end)
 
 local sword = LoadAssets(18800791894):Get("neptunianV")
 sword.Parent = character
@@ -696,13 +737,11 @@ weld.Part1 = handle
 weld.C0 = CFrame.new(0, -1, 0) * CFrame.Angles(math.rad(90), math.rad(180), 0)
 
 RunService.Heartbeat:Connect(function()
-	humanoid.WalkSpeed = 24
-end)
-
-RunService.Heartbeat:Connect(function()
 	local velocity = rootPart.Velocity
 	local magnitude = velocity.Magnitude
-
+	
+	humanoid.WalkSpeed = 24
+	
 	if magnitude > movementThreshold then
 		if isPlaying then
 			idleTrack:Stop()
