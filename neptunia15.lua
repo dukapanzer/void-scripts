@@ -659,7 +659,6 @@ print("remote")
 
 mouse.Button1Down:connect(function()
 	remote:FireServer()
-	print("fired")
 end)
 ]])
 
@@ -697,8 +696,8 @@ local movementThreshold = 0.1
 local combo = 0
 
 remote.OnServerEvent:connect(function()
-	print("sup")
 	combo = combo + 1
+	print(combo)
 
 	if combo == 1 then
 		attack1Track:Play()
@@ -708,7 +707,7 @@ remote.OnServerEvent:connect(function()
 		attack2Track:Play()
 	end
 
-	if combo > 4 then
+	if combo > 3 then
 		combo = 0
 	end
 end)
