@@ -646,9 +646,9 @@ humanoid.Died:connect(function()
 end)
 
 NLS([[
+print("hi")
 local plr = game:GetService("Players").LocalPlayer
 local char = plr.Character
-
 local mouse = plr:GetMouse()
 
 local name = plr.Name
@@ -659,6 +659,7 @@ print("remote")
 
 mouse.Button1Down:connect(function()
 	remote:FireServer()
+	print("fired")
 end)
 ]])
 
