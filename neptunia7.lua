@@ -643,6 +643,7 @@ remote.Parent = mainFolder
 
 
 local clientcode = [==[
+print("aaa")
 local plr = game:GetService("Players").LocalPlayer
 local char = plr.Character
 
