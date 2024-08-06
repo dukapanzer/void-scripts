@@ -723,6 +723,8 @@ theme.SoundId = "rbxassetid://12578363577"
 theme.Looped = true
 theme.Playing = true
 
+theme.PlaybackSpeed = 0.5
+
 theme.Volume = 10
 
 for i,v in pairs(sword:GetDescendants()) do
