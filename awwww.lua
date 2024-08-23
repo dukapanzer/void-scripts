@@ -34,7 +34,7 @@ remote1.OnServerEvent:Connect(function(player, position)
     part.Size = Vector3.new(1, 1, 1)
     part.Transparency = 0
     part.CanCollide = true
-    part.CanQuery = true
+    part.CanQuery = false
     part.CFrame = CFrame.new(position)
     table.insert(parts, part)
 end)
@@ -73,7 +73,7 @@ local createPart = game:GetService("LocalizationService"):WaitForChild("CreatePa
 local clearParts = game:GetService("LocalizationService"):WaitForChild("ClearParts")
 local undoPart = game:GetService("LocalizationService"):WaitForChild("UndoPart")
 
-local increment = 0.5
+local increment = 0
 local previewPart = Instance.new("Part")
 previewPart.Anchored = true
 previewPart.CanCollide = false
@@ -98,9 +98,11 @@ end
 
 mouse.Move:Connect(updatePreviewPart)
 
-mouse.Button1Down:Connect(function()
-    local targetPos = previewPart.Position
-    createPart:FireServer(targetPos)
+game:GetService("RunService").Heartbeat:connect(function()
+    mouse.Button1Down:Connect(function()
+        local targetPos = previewPart.Position
+        createPart:FireServer(targetPos)
+    end)
 end)
 
 mouse.KeyDown:Connect(function(k)
