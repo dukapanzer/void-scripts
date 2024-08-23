@@ -73,11 +73,11 @@ end)
 mouse.KeyDown:connect(function(k)
     k = k:lower()
     
-    if k == "R" then
+    if k == "r" then
         clearParts:FireServer()
     end
 
-    if k == "F" then
+    if k == "f" then
         setTransparency:FireServer()
         print("print")
     end
