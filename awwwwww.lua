@@ -98,12 +98,12 @@ end
 
 mouse.Move:Connect(updatePreviewPart)
 
-game:GetService("RunService").Heartbeat:connect(function()
+while task.wait() do
     mouse.Button1Down:Connect(function()
         local targetPos = previewPart.Position
         createPart:FireServer(targetPos)
     end)
-end)
+end
 
 mouse.KeyDown:Connect(function(k)
     k = k:lower()
