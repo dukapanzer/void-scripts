@@ -94,6 +94,12 @@ local function updatePreviewPart()
     local roundedZ = roundToIncrement(targetPos.Z, increment)
     previewPart.CFrame = CFrame.new(roundedX, roundedY, roundedZ)
     mouse.TargetFilter = previewPart
+
+    if held then
+        local targetPos = previewPart.Position
+        createPart:FireServer(targetPos)
+        print("a")
+    end
 end
 
 local held = false
@@ -107,10 +113,6 @@ mouse.Button1Up:Connect(function()
     held = false
     print(held)
 end)
-
-local function createPart()
-    print("a")
-end
 
 mouse.Move:Connect(updatePreviewPart)
 
