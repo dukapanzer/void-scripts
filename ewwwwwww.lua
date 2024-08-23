@@ -116,7 +116,7 @@ task.spawn(function()
     while task.wait() do
         if held then
             createPart:FireServer(targetPos)
-            print("creating part)
+            print("creating part")
         else
             return
         end
