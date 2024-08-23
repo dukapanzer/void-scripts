@@ -109,11 +109,7 @@ mouse.Button1Up:Connect(function()
 end)
 
 local function createPart()
-    if held then
-        local targetPos = previewPart.Position
-        createPart:FireServer(targetPos)
-        print("a")
-    end
+    print("a")
 end
 
 mouse.Move:Connect(updatePreviewPart)
