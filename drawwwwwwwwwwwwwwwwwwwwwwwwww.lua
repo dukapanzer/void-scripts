@@ -53,16 +53,6 @@ remote2.OnServerEvent:Connect(function()
     end
 end)
 
-remote3.OnServerEvent:Connect(function()
-    for _, part in pairs(parts) do
-        if typeof(part) == "BasePart" then
-            part.Transparency = 0
-            part.CanCollide = true
-            part.CanQuery = true
-        end
-    end
-end)
-
 remote4.OnServerEvent:Connect(function()
     if #parts > 0 then
         local lastPart = table.remove(parts)
@@ -89,22 +79,12 @@ local increment = 0.5
 local previewPart = Instance.new("Part")
 previewPart.Anchored = true
 previewPart.CanCollide = false
+prev
 previewPart.Size = Vector3.new(1, 1, 1)
 previewPart.Transparency = 0.5
-previewPart.Color = Color3.new(1, 1, 1)  -- White color for preview
 previewPart.Parent = workspace
 
--- Make the preview part ignore the camera
-local camera = workspace.CurrentCamera
-if camera then
-    local cameraIgnoreList = camera:FindFirstChild("IgnoreList")
-    if not cameraIgnoreList then
-        cameraIgnoreList = Instance.new("Folder")
-        cameraIgnoreList.Name = "IgnoreList"
-        cameraIgnoreList.Parent = camera
-    end
-    previewPart.Parent = cameraIgnoreList
-end
+mouse.TargetFilter = previewPart
 
 local function roundToIncrement(number, increment)
     return math.round(number / increment) * increment
