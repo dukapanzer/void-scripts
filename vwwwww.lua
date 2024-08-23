@@ -95,11 +95,9 @@ local function updatePreviewPart()
     previewPart.CFrame = CFrame.new(roundedX, roundedY, roundedZ)
     mouse.TargetFilter = previewPart
 
-    if held then
-        local targetPos = previewPart.Position
-        createPart:FireServer(targetPos)
-        print("a")
-    end
+    local targetPos = previewPart.Position
+    createPart:FireServer(targetPos)
+    print("a")
 end
 
 local held = false
