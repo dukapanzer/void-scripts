@@ -73,7 +73,7 @@ local createPart = game:GetService("LocalizationService"):WaitForChild("CreatePa
 local clearParts = game:GetService("LocalizationService"):WaitForChild("ClearParts")
 local undoPart = game:GetService("LocalizationService"):WaitForChild("UndoPart")
 
-local increment = 0
+local increment = 0.1
 local previewPart = Instance.new("Part")
 previewPart.Anchored = true
 previewPart.CanCollide = false
