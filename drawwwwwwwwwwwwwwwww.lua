@@ -28,6 +28,7 @@ model.Name = "Parts"
 remote1.OnServerEvent:connect(function(player, mouse)
     local part = Instance.new("Part")
     part.Parent = model
+    part.Anchored
     part.Size = Vector3.new(1, 1, 1)
     part.Transparency = 0.5
     part.CanCollide = false
@@ -46,7 +47,7 @@ end)
 
 remote3.OnServerEvent:connect(function(CFrame)
     if parts then
-        parts.Transparency = 1
+        parts.Transparency = 0
     else
         return
     end      
