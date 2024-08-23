@@ -84,7 +84,7 @@ previewPart.Size = Vector3.new(1, 1, 1)
 previewPart.Transparency = 0.5
 previewPart.Parent = workspace
 
-mouse.TargetFilter = previewPart
+mouse.TargetFilter == workspace:WaitForChild("Parts")
 
 local function roundToIncrement(number, increment)
     return math.round(number / increment) * increment
