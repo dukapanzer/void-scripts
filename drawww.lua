@@ -42,11 +42,11 @@ remote2.OnServerEvent:connect(function()
     else
         return
     end
-end
+end)
 
 humanoid.Died:connect(function()
     remotes:Destroy()
-end
+end)
 
 NLS[((
 local plr = owner
