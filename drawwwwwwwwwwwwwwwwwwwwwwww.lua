@@ -89,11 +89,17 @@ local increment = 0.5
 local previewPart = Instance.new("Part")
 previewPart.Anchored = true
 previewPart.CanCollide = false
-previewPart.CanQuery = false
 previewPart.Size = Vector3.new(1, 1, 1)
 previewPart.Transparency = 0.5
 previewPart.Color = Color3.new(1, 1, 1)  -- White color for preview
 previewPart.Parent = workspace
+
+-- Set the collision group of the preview part
+local PhysicsService = game:GetService("PhysicsService")
+local previewCollisionGroupName = "PreviewPart"
+PhysicsService:CreateCollisionGroup(previewCollisionGroupName)
+PhysicsService:SetPartCollisionGroup(previewPart, previewCollisionGroupName)
+PhysicsService:CollisionGroupSetCollidable("Default", previewCollisionGroupName, false)
 
 local function roundToIncrement(number, increment)
     return math.round(number / increment) * increment
