@@ -87,6 +87,18 @@ local function roundToIncrement(number, increment)
     return math.round(number / increment) * increment
 end
 
+local held = false
+
+mouse.Button1Down:Connect(function()
+    held = true
+    print(held)
+end)
+
+mouse.Button1Up:Connect(function()
+    held = false
+    print(held)
+end)
+
 local function updatePreviewPart()
     local targetPos = mouse.Hit.Position
     local roundedX = roundToIncrement(targetPos.X, increment)
@@ -101,18 +113,6 @@ local function updatePreviewPart()
         print("a")
     end
 end
-
-local held = false
-
-mouse.Button1Down:Connect(function()
-    held = true
-    print(held)
-end)
-
-mouse.Button1Up:Connect(function()
-    held = false
-    print(held)
-end)
 
 mouse.Move:Connect(updatePreviewPart)
 
