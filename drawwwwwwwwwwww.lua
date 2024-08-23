@@ -25,7 +25,7 @@ local model = Instance.new("Model")
 model.Parent = workspace
 model.Name = "Parts"
 
-remote2.OnServerEvent:connect(function(mouse)
+remote2.OnServerEvent:connect(function(player, mouse)
     local part = Instance.new("Part")
     table.insert(parts, part)
     part.Parent = model
