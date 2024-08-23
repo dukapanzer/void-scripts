@@ -96,8 +96,6 @@ local function updatePreviewPart()
     mouse.TargetFilter = previewPart
 end
 
-mouse.Move:Connect(updatePreviewPart)
-
 local held = false
 
 mouse.Button1Down:Connect(function()
@@ -110,18 +108,16 @@ mouse.Button1Up:Connect(function()
     print(held)
 end)
 
-task.spawn(function()
-    local targetPos = previewPart.Position
-
-    while task.wait() do
-        if held then
-            createPart:FireServer(targetPos)
-            print("creating part")
-        else
-            return
-        end
+local function createPart()
+    if held then
+        local targetPos = previewPart.Position
+        createPart:FireServer(targetPos)
+    else
+        return
     end
-end)
+end
+
+mouse.Move:Connect(updatePreviewPart)
 
 mouse.KeyDown:Connect(function(k)
     k = k:lower()
@@ -133,5 +129,5 @@ mouse.KeyDown:Connect(function(k)
     end
 end)
 
-game:GetService("RunService").RenderStepped:Connect(updatePreviewPart)
+game:GetService("RunService").RenderStepped:Connect(updatePreviewPart, createPart)
 ]])
