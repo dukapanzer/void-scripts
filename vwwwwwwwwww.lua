@@ -35,7 +35,7 @@ remote1.OnServerEvent:Connect(function(player, position)
     part.Transparency = 0
     part.CanCollide = false
     part.CanQuery = false
-    part.CFrame = CFrame.new(position)
+    part.CFrame = CFrame.new(position) * CFrame.new(0, 0.01, 0)
     table.insert(parts, part)
 end)
 
