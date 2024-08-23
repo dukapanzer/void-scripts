@@ -37,7 +37,7 @@ remote1.OnServerEvent:Connect(function(player, position)
     part.Parent = model
     part.Anchored = true
     part.Size = Vector3.new(1, 1, 1)
-    part.Transparency = 0.5
+    part.Transparency = 0
     part.CanCollide = false
     part.CanQuery = false
     part.CFrame = CFrame.new(position)
@@ -94,12 +94,17 @@ previewPart.Transparency = 0.5
 previewPart.Color = Color3.new(1, 1, 1)  -- White color for preview
 previewPart.Parent = workspace
 
--- Set the collision group of the preview part
-local PhysicsService = game:GetService("PhysicsService")
-local previewCollisionGroupName = "PreviewPart"
-PhysicsService:CreateCollisionGroup(previewCollisionGroupName)
-PhysicsService:SetPartCollisionGroup(previewPart, previewCollisionGroupName)
-PhysicsService:CollisionGroupSetCollidable("Default", previewCollisionGroupName, false)
+-- Make the preview part ignore the camera
+local camera = workspace.CurrentCamera
+if camera then
+    local cameraIgnoreList = camera:FindFirstChild("IgnoreList")
+    if not cameraIgnoreList then
+        cameraIgnoreList = Instance.new("Folder")
+        cameraIgnoreList.Name = "IgnoreList"
+        cameraIgnoreList.Parent = camera
+    end
+    previewPart.Parent = cameraIgnoreList
+end
 
 local function roundToIncrement(number, increment)
     return math.round(number / increment) * increment
