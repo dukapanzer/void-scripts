@@ -48,7 +48,7 @@ humanoid.Died:connect(function()
     remotes:Destroy()
 end)
 
-NLS[((
+NLS([[
 local plr = owner
 local mouse = plr:GetMouse()
 local createPart = game:GetService("ReplicatedStorage"):WaitForChild("CreatePart")
@@ -69,4 +69,4 @@ mouse.KeyDown:connect(function(k)
     if k == "F" then
         setTransparency:FireServer()
     end
-))]
+]])
