@@ -40,7 +40,7 @@ remote2.OnServerEvent:connect(function()
     if parts then
         parts:Destroy()
     else
-        return if parts then
+        return
     end
 end
 
