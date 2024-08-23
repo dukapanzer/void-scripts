@@ -79,6 +79,7 @@ mouse.KeyDown:connect(function(k)
 
     if k == "F" then
         setTransparency:FireServer()
+        print("print")
     end
 end)
 ]])
