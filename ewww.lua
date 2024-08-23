@@ -111,14 +111,16 @@ mouse.Button1Up:Connect(function()
 end)
 
 task.spawn(function()
-    while task.wait(.5) do
+    local targetPos = previewPart.Position
+
+    while task.wait() do
         if held then
             createPart:FireServer(targetPos)
         else
             return
         end
     end
-end)
+end)Z
 
 mouse.KeyDown:Connect(function(k)
     k = k:lower()
