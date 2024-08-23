@@ -28,7 +28,7 @@ model.Name = "Parts"
 remote1.OnServerEvent:connect(function(player, mouse)
     local part = Instance.new("Part")
     part.Parent = model
-    part.Anchored
+    part.Anchored = true
     part.Size = Vector3.new(1, 1, 1)
     part.Transparency = 0.5
     part.CanCollide = false
