@@ -25,7 +25,7 @@ local model = Instance.new("Model")
 model.Parent = workspace
 model.Name = "Parts"
 
-remote2.OnServerEvent:connect(function(CFrame)
+remote2.OnServerEvent:connect(function(mouse.Hit.Position)
     local part = Instance.new("Part")
     table.insert(parts, part)
     part.Parent = model
@@ -33,7 +33,7 @@ remote2.OnServerEvent:connect(function(CFrame)
     part.Transparency = 0.5
     part.CanCollide = false
     part.CanQuery = false
-    part.CFrame = CFrame
+    part.CFrame = CFrame.new(mouse.Hit.Position)
 end)
 
 remote2.OnServerEvent:connect(function()
@@ -66,7 +66,7 @@ local clearParts = game:GetService("LocalizationService"):WaitForChild("ClearPar
 local setTransparency = game:GetService("LocalizationService"):WaitForChild("setPartTransparency")
 
 mouse.Button1Down:connect(function()
-    createPart:FireServer(mouse.Hit)
+    createPart:FireServer(mouse.Hit.Position)
 end)
 
 mouse.KeyDown:connect(function(k)
