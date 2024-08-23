@@ -28,13 +28,11 @@ model.Name = "Parts"
 remote1.OnServerEvent:connect(function(player, mouse)
     local part = Instance.new("Part")
     part.Parent = model
-    part.Size = "1, 1, 1"
+    part.Size = Vector3.new(1, 1, 1)
     part.Transparency = 0.5
     part.CanCollide = false
     part.CanQuery = false
-    part.CFrame = CFrame.new(0, 0, 0)
-
-    task.wait(2)
+    part.CFrame = CFrame.new(mouse)
     table.insert(parts, part)
 end)
 
