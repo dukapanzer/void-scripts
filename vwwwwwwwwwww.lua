@@ -30,6 +30,7 @@ end
 remote1.OnServerEvent:Connect(function(player, position)
     local part = Instance.new("Part")
     part.Parent = model
+    part.Shape = Enum.PartType.Ball
     part.Anchored = true
     part.Size = Vector3.new(1, 0.01, 1)
     part.Transparency = 0
