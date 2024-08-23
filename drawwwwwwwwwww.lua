@@ -25,7 +25,7 @@ local model = Instance.new("Model")
 model.Parent = workspace
 model.Name = "Parts"
 
-remote2.OnServerEvent:connect(function(mouse.Hit.Position))
+remote2.OnServerEvent:connect(function(mouse)
     local part = Instance.new("Part")
     table.insert(parts, part)
     part.Parent = model
@@ -33,7 +33,7 @@ remote2.OnServerEvent:connect(function(mouse.Hit.Position))
     part.Transparency = 0.5
     part.CanCollide = false
     part.CanQuery = false
-    part.CFrame = CFrame.new(mouse.Hit.Position)
+    part.CFrame = CFrame.new(mouse)
 end)
 
 remote2.OnServerEvent:connect(function()
