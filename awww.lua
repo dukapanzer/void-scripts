@@ -83,7 +83,7 @@ previewPart.Size = Vector3.new(1, 1, 1)
 previewPart.Transparency = 0.5
 previewPart.Parent = workspace
 
-mouse.TargetFilter = workspace:WaitForChild("Parts")
+mouse.TargetFilter = previewPart
 
 local function roundToIncrement(number, increment)
     return math.round(number / increment) * increment
@@ -95,6 +95,7 @@ local function updatePreviewPart()
     local roundedY = roundToIncrement(targetPos.Y, increment)
     local roundedZ = roundToIncrement(targetPos.Z, increment)
     previewPart.CFrame = CFrame.new(roundedX, roundedY, roundedZ)
+    mouse.TargetFilter = previewPart
 end
 
 mouse.Move:Connect(updatePreviewPart)
