@@ -65,7 +65,7 @@ local setTransparency = game:GetService("ReplicatedStorage"):WaitForChild("setPa
 
 mouse.Button1Down:connect(function()
     createPart:FireServer(mouse.Hit.CFrame)
-end
+end)
 
 mouse.KeyDown:connect(function(k)
     k = k:lower()
@@ -77,4 +77,5 @@ mouse.KeyDown:connect(function(k)
     if k == "F" then
         setTransparency:FireServer()
     end
+end)
 ]])
