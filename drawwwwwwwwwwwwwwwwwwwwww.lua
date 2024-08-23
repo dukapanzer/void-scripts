@@ -16,7 +16,7 @@ table.insert(remotes, remote2)
 
 local remote3 = Instance.new("RemoteEvent")
 remote3.Parent = game:GetService("LocalizationService")
-remote3.Name = "setPartTransparency"
+remote3.Name = "SetPartsProperties"
 table.insert(remotes, remote3)
 
 local remote4 = Instance.new("RemoteEvent")
@@ -28,7 +28,11 @@ local model = Instance.new("Model")
 model.Parent = workspace
 model.Name = "Parts"
 
-remote1.OnServerEvent:Connect(function(player, mouse)
+local function roundToIncrement(number, increment)
+    return math.round(number / increment) * increment
+end
+
+remote1.OnServerEvent:Connect(function(player, position)
     local part = Instance.new("Part")
     part.Parent = model
     part.Anchored = true
@@ -36,7 +40,7 @@ remote1.OnServerEvent:Connect(function(player, mouse)
     part.Transparency = 0.5
     part.CanCollide = false
     part.CanQuery = false
-    part.CFrame = CFrame.new(mouse)
+    part.CFrame = CFrame.new(position)
     table.insert(parts, part)
 end)
 
@@ -53,6 +57,8 @@ remote3.OnServerEvent:Connect(function()
     for _, part in pairs(parts) do
         if typeof(part) == "BasePart" then
             part.Transparency = 0
+            part.CanCollide = true
+            part.CanQuery = true
         end
     end
 end)
@@ -76,11 +82,35 @@ local plr = owner
 local mouse = plr:GetMouse()
 local createPart = game:GetService("LocalizationService"):WaitForChild("CreatePart")
 local clearParts = game:GetService("LocalizationService"):WaitForChild("ClearParts")
-local setTransparency = game:GetService("LocalizationService"):WaitForChild("setPartTransparency")
+local setPartsProperties = game:GetService("LocalizationService"):WaitForChild("SetPartsProperties")
 local undoPart = game:GetService("LocalizationService"):WaitForChild("UndoPart")
 
+local increment = 0.5
+local previewPart = Instance.new("Part")
+previewPart.Anchored = true
+previewPart.CanCollide = false
+previewPart.Size = Vector3.new(1, 1, 1)
+previewPart.Transparency = 0.5
+previewPart.Color = Color3.new(1, 1, 1)  -- White color for preview
+previewPart.Parent = workspace
+
+local function roundToIncrement(number, increment)
+    return math.round(number / increment) * increment
+end
+
+local function updatePreviewPart()
+    local targetPos = mouse.Hit.Position
+    local roundedX = roundToIncrement(targetPos.X, increment)
+    local roundedY = roundToIncrement(targetPos.Y, increment)
+    local roundedZ = roundToIncrement(targetPos.Z, increment)
+    previewPart.CFrame = CFrame.new(roundedX, roundedY, roundedZ)
+end
+
+mouse.Move:Connect(updatePreviewPart)
+
 mouse.Button1Down:Connect(function()
-    createPart:FireServer(mouse.Hit.Position)
+    local targetPos = previewPart.Position
+    createPart:FireServer(targetPos)
 end)
 
 mouse.KeyDown:Connect(function(k)
@@ -88,9 +118,13 @@ mouse.KeyDown:Connect(function(k)
     if k == "r" then
         clearParts:FireServer()
     elseif k == "f" then
-        setTransparency:FireServer()
+        setPartsProperties:FireServer()
+        print("Parts properties updated")
     elseif k == "z" then
         undoPart:FireServer()
+        print("Undo last part")
     end
 end)
+
+game:GetService("RunService").RenderStepped:Connect(updatePreviewPart)
 ]])
