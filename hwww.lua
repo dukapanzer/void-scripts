@@ -32,7 +32,7 @@ remote1.OnServerEvent:Connect(function(player, position)
     part.Parent = model
     part.Shape = Enum.PartType.Ball
     part.Anchored = true
-    part.Size = Vector3.new(1, 1, 1)
+    part.Size = Vector3.new(0.5, 0.5, 0.5)
     part.Transparency = 0
     part.CanCollide = false
     part.CanQuery = false
@@ -79,7 +79,7 @@ local previewPart = Instance.new("Part")
 previewPart.Anchored = true
 previewPart.CanCollide = false
 previewPart.Shape = Enum.PartType.Ball
-previewPart.Size = Vector3.new(1, 1, 1)
+previewPart.Size = Vector3.new(0.5, 0.5, 0.5)
 previewPart.Transparency = 0.5
 previewPart.Parent = workspace
 
