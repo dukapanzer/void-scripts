@@ -77,7 +77,7 @@ local increment = 0.1
 local previewPart = Instance.new("Part")
 previewPart.Anchored = true
 previewPart.CanCollide = false
-previewPart.Size = Vector3.new(1, 1, 1)
+previewPart.Size = Vector3.new(1, 0.01, 1)
 previewPart.Transparency = 0.5
 previewPart.Parent = workspace
 
