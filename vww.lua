@@ -113,8 +113,6 @@ local function createPart()
         local targetPos = previewPart.Position
         createPart:FireServer(targetPos)
         print("a")
-    else
-        return
     end
 end
 
