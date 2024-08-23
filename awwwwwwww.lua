@@ -98,11 +98,26 @@ end
 
 mouse.Move:Connect(updatePreviewPart)
 
-while task.wait() do
-    mouse.Button1Down:Connect(function()
-        local targetPos = previewPart.Position
+local held = false
+
+mouse.Button1Down:Connect(function()
+    held = true
+    local targetPos = previewPart.Position
+    createPart:FireServer(targetPos)
+end)
+
+mouse.Button1Up:Connect(function()
+    held = false
+    local targetPos = previewPart.Position
+    createPart:FireServer(targetPos)
+end)
+
+while task.wait(.5) do
+    if held then
         createPart:FireServer(targetPos)
-    end)
+    else
+        return
+    end
 end
 
 mouse.KeyDown:Connect(function(k)
