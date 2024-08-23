@@ -110,13 +110,15 @@ mouse.Button1Up:Connect(function()
     print(held)
 end)
 
-while task.wait(.5) do
-    if held then
-        createPart:FireServer(targetPos)
-    else
-        return
+task.spawn(function()
+    while task.wait(.5) do
+        if held then
+            createPart:FireServer(targetPos)
+        else
+            return
+        end
     end
-end
+end)
 
 mouse.KeyDown:Connect(function(k)
     k = k:lower()
