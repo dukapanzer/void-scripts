@@ -120,7 +120,7 @@ task.spawn(function()
             return
         end
     end
-end)Z
+end)
 
 mouse.KeyDown:Connect(function(k)
     k = k:lower()
