@@ -33,7 +33,7 @@ remote2.OnServerEvent:connect(function(player, mouse)
     part.Transparency = 0.5
     part.CanCollide = false
     part.CanQuery = false
-    part.CFrame = CFrame.new(mouse)
+    part.CFrame = CFrame.new(0, 0, 0)
 end)
 
 remote2.OnServerEvent:connect(function()
