@@ -12,8 +12,8 @@ remote1.Name = "CreatePart"
 table.insert(remotes, remote1)
 
 local remote2 = Instance.new("RemoteEvent")
-remote.Parent = game:GetService("LocalizationService")
-remote.Name = "ClearParts"
+remote2.Parent = game:GetService("LocalizationService")
+remote2.Name = "ClearParts"
 table.insert(remotes, remote2)
 
 local remote3 = Instance.new("RemoteEvent")
@@ -25,7 +25,7 @@ local model = Instance.new("Model")
 model.Parent = workspace
 model.Name = "Parts"
 
-remote.OnServerEvent:connect(function(CFrame)
+remote2.OnServerEvent:connect(function(CFrame)
     local part = Instance.new("Part")
     table.insert(parts, part)
     part.Parent = model
@@ -42,6 +42,14 @@ remote2.OnServerEvent:connect(function()
     else
         return
     end
+end)
+
+remote3.OnServerEvent:connect(function(CFrame)
+    if parts then
+        parts.Transparency = 1
+    else
+        return
+    end      
 end)
 
 humanoid.Died:connect(function()
