@@ -32,7 +32,7 @@ remote1.OnServerEvent:Connect(function(player, position)
     part.Parent = model
     part.Shape = Enum.PartType.Ball
     part.Anchored = true
-    part.Size = Vector3.new(1, 0.01, 1)
+    part.Size = Vector3.new(1, 1, 1)
     part.Transparency = 0
     part.CanCollide = false
     part.CanQuery = false
