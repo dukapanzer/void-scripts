@@ -1,8 +1,6 @@
 local plr = owner
 local char = owner.Character
-
 local humanoid = char:WaitForChild("Humanoid")
-
 remotes = {}
 parts = {}
 
@@ -21,11 +19,16 @@ remote3.Parent = game:GetService("LocalizationService")
 remote3.Name = "setPartTransparency"
 table.insert(remotes, remote3)
 
+local remote4 = Instance.new("RemoteEvent")
+remote4.Parent = game:GetService("LocalizationService")
+remote4.Name = "UndoPart"
+table.insert(remotes, remote4)
+
 local model = Instance.new("Model")
 model.Parent = workspace
 model.Name = "Parts"
 
-remote1.OnServerEvent:connect(function(player, mouse)
+remote1.OnServerEvent:Connect(function(player, mouse)
     local part = Instance.new("Part")
     part.Parent = model
     part.Anchored = true
@@ -37,26 +40,35 @@ remote1.OnServerEvent:connect(function(player, mouse)
     table.insert(parts, part)
 end)
 
-remote2.OnServerEvent:connect(function()
-    if parts then
-        parts:Destroy()
-    else
-        return
+remote2.OnServerEvent:Connect(function()
+    if #parts > 0 then
+        for _, part in ipairs(parts) do
+            part:Destroy()
+        end
+        parts = {}
     end
 end)
 
-remote3.OnServerEvent:connect(function(CFrame)
-    if parts then
-        parts.Transparency = 0
-    else
-        return
-    end      
+remote3.OnServerEvent:Connect(function()
+    for _, part in pairs(parts) do
+        if typeof(part) == "BasePart" then
+            part.Transparency = 0
+        end
+    end
 end)
 
-humanoid.Died:connect(function()
-    if remotes then
-        remotes:Destroy()
+remote4.OnServerEvent:Connect(function()
+    if #parts > 0 then
+        local lastPart = table.remove(parts)
+        lastPart:Destroy()
     end
+end)
+
+humanoid.Died:Connect(function()
+    for _, remote in ipairs(remotes) do
+        remote:Destroy()
+    end
+    remotes = {}
 end)
 
 NLS([[
@@ -65,21 +77,20 @@ local mouse = plr:GetMouse()
 local createPart = game:GetService("LocalizationService"):WaitForChild("CreatePart")
 local clearParts = game:GetService("LocalizationService"):WaitForChild("ClearParts")
 local setTransparency = game:GetService("LocalizationService"):WaitForChild("setPartTransparency")
+local undoPart = game:GetService("LocalizationService"):WaitForChild("UndoPart")
 
-mouse.Button1Down:connect(function()
+mouse.Button1Down:Connect(function()
     createPart:FireServer(mouse.Hit.Position)
 end)
 
-mouse.KeyDown:connect(function(k)
+mouse.KeyDown:Connect(function(k)
     k = k:lower()
-    
     if k == "r" then
         clearParts:FireServer()
-    end
-
-    if k == "f" then
+    elseif k == "f" then
         setTransparency:FireServer()
-        print("print")
+    elseif k == "z" then
+        undoPart:FireServer()
     end
 end)
 ]])
