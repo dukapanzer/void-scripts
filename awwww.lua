@@ -16,13 +16,8 @@ table.insert(remotes, remote2)
 
 local remote3 = Instance.new("RemoteEvent")
 remote3.Parent = game:GetService("LocalizationService")
-remote3.Name = "SetPartsProperties"
+remote3.Name = "UndoPart"
 table.insert(remotes, remote3)
-
-local remote4 = Instance.new("RemoteEvent")
-remote4.Parent = game:GetService("LocalizationService")
-remote4.Name = "UndoPart"
-table.insert(remotes, remote4)
 
 local model = Instance.new("Model")
 model.Parent = workspace
@@ -38,8 +33,8 @@ remote1.OnServerEvent:Connect(function(player, position)
     part.Anchored = true
     part.Size = Vector3.new(1, 1, 1)
     part.Transparency = 0
-    part.CanCollide = false
-    part.CanQuery = false
+    part.CanCollide = true
+    part.CanQuery = true
     part.CFrame = CFrame.new(position)
     table.insert(parts, part)
 end)
@@ -53,7 +48,7 @@ remote2.OnServerEvent:Connect(function()
     end
 end)
 
-remote4.OnServerEvent:Connect(function()
+remote3.OnServerEvent:Connect(function()
     if #parts > 0 then
         local lastPart = table.remove(parts)
         lastPart:Destroy()
@@ -61,6 +56,10 @@ remote4.OnServerEvent:Connect(function()
 end)
 
 humanoid.Died:Connect(function()
+    if model then
+        model:Destroy()
+    end
+
     for _, remote in ipairs(remotes) do
         remote:Destroy()
     end
@@ -72,7 +71,6 @@ local plr = owner
 local mouse = plr:GetMouse()
 local createPart = game:GetService("LocalizationService"):WaitForChild("CreatePart")
 local clearParts = game:GetService("LocalizationService"):WaitForChild("ClearParts")
-local setPartsProperties = game:GetService("LocalizationService"):WaitForChild("SetPartsProperties")
 local undoPart = game:GetService("LocalizationService"):WaitForChild("UndoPart")
 
 local increment = 0.5
@@ -109,9 +107,6 @@ mouse.KeyDown:Connect(function(k)
     k = k:lower()
     if k == "r" then
         clearParts:FireServer()
-    elseif k == "f" then
-        setPartsProperties:FireServer()
-        print("Parts properties updated")
     elseif k == "z" then
         undoPart:FireServer()
         print("Undo last part")
