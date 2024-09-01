@@ -27,6 +27,12 @@ remote.OnServerEvent:Connect(function(player, mouse_position, mouse_held, camera
 
 	cursor.CFrame = CFrame.new(mouse_position + final_offset)
 
+	if mouse2_held then
+		image_label.ImageColor3 = Color3.new(1, 0, 0)
+	else
+		image_label.ImageColor3 = Color3.new(1, 1, 1)
+	end
+
 	if mouse_held then
 		if hit_part ~= nil then
 			hit_part.CFrame = cursor.CFrame
@@ -34,12 +40,6 @@ remote.OnServerEvent:Connect(function(player, mouse_position, mouse_held, camera
 		else
 			warn("sorry if i make you mad but the part you clicked got detected as nil and i don't know what to move, sorry. you probably accidentaly clicked in the sky or missed the part? no idea..")
 		end
-		image_label.ImageColor3 = Color3.new(1, 0, 0)
-	else
-		image_label.ImageColor3 = Color3.new(1, 1, 1)
-	end
-
-	if mouse2_held then
 		image_label.ImageColor3 = Color3.new(1, 0, 0)
 	else
 		image_label.ImageColor3 = Color3.new(1, 1, 1)
@@ -85,9 +85,11 @@ end)
 
 mouse.Button2Down:connect(function()
 	mouse2_held = true
+	remote:FireServer(mouse_position, mouse_held, cam.CFrame, hit_part, mouse2_held)
 end)
 
 mouse.Button2Up:connect(function()
 	mouse2_held = false
+	remote:FireServer(mouse_position, mouse_held, cam.CFrame, hit_part, mouse2_held)
 end)
 ]])
