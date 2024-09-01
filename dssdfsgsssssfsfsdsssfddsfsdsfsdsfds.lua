@@ -46,8 +46,7 @@ local mouse_held = false
 
 hb:Connect(function()
 	local mouse_position = mouse.Hit.Position
-	local hit_part = nil
-	remote:FireServer(mouse_position, mouse_held, cam.CFrame, hit_part)
+	remote:FireServer(mouse_position, mouse_held, cam.CFrame)
 end)
 
 mouse.Button1Down:Connect(function()
