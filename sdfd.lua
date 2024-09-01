@@ -11,13 +11,12 @@ cursor.Parent = char
 local image_label = cursor:WaitForChild("BillboardGui"):WaitForChild("ImageLabel")
 
 local base_offset = Vector3.new(0.9, -0.9, 0)
-local dragging_model = nil
 
 local function handleRemoteEvent(player, mouse_position, mouse_held, camera_cframe, model_to_drag)
     local success, errorMessage = pcall(function()
         local distance = (mouse_position - camera_cframe.Position).Magnitude
 
-        local adjusted_offset = base_offset * (distance / 50) 
+        local adjusted_offset = base_offset * (distance / 50)
 
         local camera_right_vector = camera_cframe.RightVector
         local camera_up_vector = camera_cframe.UpVector
@@ -81,10 +80,10 @@ mouse.Button1Down:Connect(function()
                 if dragging_model:IsA("Model") then
                     mouse.TargetFilter = dragging_model
                     mouse_held = true
-                    remote:FireServer(mouse.Hit.Position, mouse_held, cam.CFrame, dragging_model)
                 end
             end
         end
+        remote:FireServer(mouse.Hit.Position, mouse_held, cam.CFrame, dragging_model)
     end)
 
     if not success then
