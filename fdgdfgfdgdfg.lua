@@ -12,7 +12,7 @@ local image_label = cursor:WaitForChild("BillboardGui"):WaitForChild("ImageLabel
 
 local base_offset = Vector3.new(0.9, -0.9, 0)
 
-local function handleRemoteEvent(player, mouse_position, mouse_held, camera_cframe, model_to_drag)
+local function handleRemoteEvent(player, mouse_position, mouse_held, camera_cframe, model_to_drag, right_mouse_held)
     local success, errorMessage = pcall(function()
         local distance = (mouse_position - camera_cframe.Position).Magnitude
 
@@ -34,6 +34,8 @@ local function handleRemoteEvent(player, mouse_position, mouse_held, camera_cfra
                     end
                 end
             end
+        elseif right_mouse_held then
+            image_label.ImageColor3 = Color3.new(1, 0, 0)
         else
             image_label.ImageColor3 = Color3.new(1, 1, 1)
         end
@@ -56,12 +58,13 @@ local hb = game:GetService("RunService").Heartbeat
 local cam = game.Workspace.CurrentCamera
 
 local mouse_held = false
+local right_mouse_held = false
 local dragging_model = nil
 
 local function updateCursor()
     local success, errorMessage = pcall(function()
         local mouse_position = mouse.Hit.Position
-        remote:FireServer(mouse_position, mouse_held, cam.CFrame, dragging_model)
+        remote:FireServer(mouse_position, mouse_held, cam.CFrame, dragging_model, right_mouse_held)
     end)
 
     if not success then
@@ -76,33 +79,55 @@ mouse.Button1Down:Connect(function()
         if mouse.Target then
             local target = mouse.Target
             if target:IsA("BasePart") then
-                dragging_model = target.Parent  -- Assume that the parent is the model
+                dragging_model = target.Parent
                 if dragging_model:IsA("Model") then
                     mouse.TargetFilter = dragging_model
                     mouse_held = true
                 end
             end
         end
-        remote:FireServer(mouse.Hit.Position, mouse_held, cam.CFrame, dragging_model)
+        remote:FireServer(mouse.Hit.Position, mouse_held, cam.CFrame, dragging_model, right_mouse_held)
     end)
 
     if not success then
-        warn("Error handling mouse button down: " .. errorMessage)
+        warn("Error handling left mouse button down: " .. errorMessage)
     end
 end)
 
 mouse.Button1Up:Connect(function()
     local success, errorMessage = pcall(function()
         if dragging_model then
-            mouse.TargetFilter = nil  -- Reset target filter
+            mouse.TargetFilter = nil
             dragging_model = nil
         end
         mouse_held = false
-        remote:FireServer(mouse.Hit.Position, mouse_held, cam.CFrame, dragging_model)
+        remote:FireServer(mouse.Hit.Position, mouse_held, cam.CFrame, dragging_model, right_mouse_held)
     end)
 
     if not success then
-        warn("Error handling mouse button up: " .. errorMessage)
+        warn("Error handling left mouse button up: " .. errorMessage)
+    end
+end)
+
+mouse.Button2Down:Connect(function()
+    local success, errorMessage = pcall(function()
+        right_mouse_held = true
+        remote:FireServer(mouse.Hit.Position, mouse_held, cam.CFrame, dragging_model, right_mouse_held)
+    end)
+
+    if not success then
+        warn("Error handling right mouse button down: " .. errorMessage)
+    end
+end)
+
+mouse.Button2Up:Connect(function()
+    local success, errorMessage = pcall(function()
+        right_mouse_held = false
+        remote:FireServer(mouse.Hit.Position, mouse_held, cam.CFrame, dragging_model, right_mouse_held)
+    end)
+
+    if not success then
+        warn("Error handling right mouse button up: " .. errorMessage)
     end
 end)
 ]])
