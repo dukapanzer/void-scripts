@@ -18,14 +18,12 @@ image_label.Parent.Size = UDim2.new(1, 0, 1, 0)
 
 local base_offset = Vector3.new(0.9, -0.9, 0)
 
+local right_held
 remote2.OnServerEvent:Connect(function(player, right_held)
-	print("hi")
 	if right_held then
-		print("red")
-		image_label.ImageColor3 = Color3.new(1, 0, 0)
+		right_held = true
 	else
-		print("white")
-		image_label.ImageColor3 = Color3.new(1, 1, 1)
+		right_held = false
 	end
 end)
 
@@ -50,7 +48,9 @@ remote.OnServerEvent:Connect(function(player, mouse_position, mouse_held, camera
 		end
 		image_label.ImageColor3 = Color3.new(1, 0, 0)
 	else
-		image_label.ImageColor3 = Color3.new(1, 1, 1)
+		if not right_held then
+			image_label.ImageColor3 = Color3.new(1, 1, 1)
+		end)
 	end
 end)
 
