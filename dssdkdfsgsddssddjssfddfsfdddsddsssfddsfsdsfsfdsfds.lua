@@ -11,6 +11,7 @@ remote.Parent = char
 cursor.Parent = char
 local image_label = cursor:WaitForChild("BillboardGui"):WaitForChild("ImageLabel")
 image_label.Size = UDim2.new(1, 0, 1, 0)
+image_label.Parent.Size = UDim2.new(1, 0, 1, 0)
 
 local base_offset = Vector3.new(0.9, -0.9, 0)
 
