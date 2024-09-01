@@ -11,9 +11,9 @@ cursor.Parent = char
 local image_label = cursor:WaitForChild("BillboardGui"):WaitForChild("ImageLabel")
 
 local base_offset = Vector3.new(0.9, -0.9, 0)
-local dragging_part = nil
+local dragging_model = nil
 
-remote.OnServerEvent:Connect(function(player, mouse_position, mouse_held, camera_cframe, part_to_drag)
+remote.OnServerEvent:Connect(function(player, mouse_position, mouse_held, camera_cframe, model_to_drag)
     local distance = (mouse_position - camera_cframe.Position).Magnitude
 
     local adjusted_offset = base_offset * (distance / 50) 
@@ -27,8 +27,12 @@ remote.OnServerEvent:Connect(function(player, mouse_position, mouse_held, camera
 
     if mouse_held then
         image_label.ImageColor3 = Color3.new(1, 0, 0)
-        if part_to_drag then
-            part_to_drag.Position = mouse_position
+        if model_to_drag then
+            for _, part in ipairs(model_to_drag:GetDescendants()) do
+                if part:IsA("BasePart") then
+                    part.Position = mouse_position
+                end
+            end
         end
     else
         image_label.ImageColor3 = Color3.new(1, 1, 1)
@@ -45,28 +49,33 @@ local hb = game:GetService("RunService").Heartbeat
 local cam = game.Workspace.CurrentCamera
 
 local mouse_held = false
-local dragging_part = nil
+local dragging_model = nil
 
 hb:Connect(function()
     local mouse_position = mouse.Hit.Position
-    remote:FireServer(mouse_position, mouse_held, cam.CFrame, dragging_part)
+    remote:FireServer(mouse_position, mouse_held, cam.CFrame, dragging_model)
 end)
 
 mouse.Button1Down:Connect(function()
-    if mouse.Target and mouse.Target:IsA("BasePart") then
-        dragging_part = mouse.Target
-        mouse.TargetFilter = dragging_part
-        mouse_held = true
-        remote:FireServer(mouse.Hit.Position, mouse_held, cam.CFrame, dragging_part)
+    if mouse.Target then
+        local target = mouse.Target
+        if target:IsA("BasePart") then
+            dragging_model = target.Parent
+            if dragging_model:IsA("Model") then
+                mouse.TargetFilter = dragging_model
+                mouse_held = true
+                remote:FireServer(mouse.Hit.Position, mouse_held, cam.CFrame, dragging_model)
+            end
+        end
     end
 end)
 
 mouse.Button1Up:Connect(function()
-    if dragging_part then
+    if dragging_model then
         mouse.TargetFilter = nil
-        dragging_part = nil
+        dragging_model = nil
     end
     mouse_held = false
-    remote:FireServer(mouse.Hit.Position, mouse_held, cam.CFrame, dragging_part)
+    remote:FireServer(mouse.Hit.Position, mouse_held, cam.CFrame, dragging_model)
 end)
 ]])
