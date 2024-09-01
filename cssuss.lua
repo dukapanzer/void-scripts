@@ -19,11 +19,11 @@ local Attachment = Instance.new("Attachment")
 Attachment.Parent = Cursor
 local ParticleEmitter = Instance.new("ParticleEmitter")
 ParticleEmitter.Parent = Attachment
-ParticleEmitter.LightEmission = NumberRange.new(0.5)
+ParticleEmitter.LightEmission = 0.5
 ParticleEmitter.LightInfluence = 0
 ParticleEmitter.Orientation = Enum.ParticleOrientation.FacingCamera
 ParticleEmitter.Texture = "rbxassetid://107027142769343"
-ParticleEmitter.Lifetime = math.huge
+ParticleEmitter.Lifetime = NumberRange.new(math.huge)
 ParticleEmitter.Rate = 1
 ParticleEmitter.LockedToPart = true
 
