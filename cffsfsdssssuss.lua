@@ -50,6 +50,8 @@ local rs = game:GetService("RunService")
 local remote = plrGui:WaitForChild("RemoteEvent")
 local isMouseDown = false
 
+mouse.TargetFilter = cursor
+
 mouse.Button1Down:Connect(function()
 	isMouseDown = true
 end)
