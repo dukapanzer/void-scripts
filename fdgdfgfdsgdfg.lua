@@ -12,6 +12,10 @@ local image_label = cursor:WaitForChild("BillboardGui"):WaitForChild("ImageLabel
 
 local base_offset = Vector3.new(0.9, -0.9, 0)
 
+local function isPartLocked(part)
+    return part and part:IsA("BasePart") and part.Locked
+end
+
 local function handleRemoteEvent(player, mouse_position, mouse_held, camera_cframe, model_to_drag, right_mouse_held)
     local success, errorMessage = pcall(function()
         local distance = (mouse_position - camera_cframe.Position).Magnitude
@@ -25,17 +29,19 @@ local function handleRemoteEvent(player, mouse_position, mouse_held, camera_cfra
 
         cursor.CFrame = CFrame.new(mouse_position + final_offset)
 
-        if mouse_held then
-            image_label.ImageColor3 = Color3.new(1, 0, 0)
+        if mouse_held or right_mouse_held then
+            if right_mouse_held then
+                image_label.ImageColor3 = Color3.new(0, 1, 0)
+            else
+                image_label.ImageColor3 = Color3.new(1, 0, 0)
+            end
             if model_to_drag then
                 for _, part in ipairs(model_to_drag:GetDescendants()) do
-                    if part:IsA("BasePart") then
+                    if part:IsA("BasePart") and not isPartLocked(part) then
                         part.Position = mouse_position
                     end
                 end
             end
-        elseif right_mouse_held then
-            image_label.ImageColor3 = Color3.new(1, 0, 0)
         else
             image_label.ImageColor3 = Color3.new(1, 1, 1)
         end
@@ -61,6 +67,10 @@ local mouse_held = false
 local right_mouse_held = false
 local dragging_model = nil
 
+local function isPartLocked(part)
+    return part and part:IsA("BasePart") and part.Locked
+end
+
 local function updateCursor()
     local success, errorMessage = pcall(function()
         local mouse_position = mouse.Hit.Position
@@ -78,12 +88,14 @@ mouse.Button1Down:Connect(function()
     local success, errorMessage = pcall(function()
         if mouse.Target then
             local target = mouse.Target
-            if target:IsA("BasePart") then
-                dragging_model = target.Parent
+            if target:IsA("BasePart") and not isPartLocked(target) then
+                dragging_model = target.Parent  -- Assume that the parent is the model
                 if dragging_model:IsA("Model") then
                     mouse.TargetFilter = dragging_model
                     mouse_held = true
                 end
+            else
+                dragging_model = nil  -- Reset if the part is locked
             end
         end
         remote:FireServer(mouse.Hit.Position, mouse_held, cam.CFrame, dragging_model, right_mouse_held)
@@ -97,7 +109,7 @@ end)
 mouse.Button1Up:Connect(function()
     local success, errorMessage = pcall(function()
         if dragging_model then
-            mouse.TargetFilter = nil
+            mouse.TargetFilter = nil  -- Reset target filter
             dragging_model = nil
         end
         mouse_held = false
