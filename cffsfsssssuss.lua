@@ -2,10 +2,8 @@ local plr = owner
 local plrgui = owner:WaitForChild("PlayerGui")
 local remote = Instance.new("RemoteEvent")
 remote.Parent = plrgui
-
 local rs = game:GetService("RunService")
 local hb = rs.Heartbeat
-
 local Cursor = Instance.new("Part")
 Cursor.Parent = workspace
 Cursor.Size = Vector3.new(1, 1, 1)
@@ -38,8 +36,9 @@ local function random(length)
 	return result
 end
 
-remote.OnServerEvent:connect(function(player, pos)
+remote.OnServerEvent:Connect(function(player, pos, isMouseDown)
 	Cursor.CFrame = pos
+	ParticleEmitter.Color = ColorSequence.new(isMouseDown and Color3.new(1, 0, 0) or Color3.new(1, 1, 1))
 end)
 
 NLS([[
@@ -49,26 +48,32 @@ local cursor = workspace:WaitForChild("Cursor")
 local mouse = plr:GetMouse()
 local rs = game:GetService("RunService")
 local remote = plrGui:WaitForChild("RemoteEvent")
+local isMouseDown = false
 
-	rs.Heartbeat:Connect(function()
-		local raycastParams = RaycastParams.new()
-		raycastParams.FilterDescendantsInstances = {cursor}
-		raycastParams.FilterType = Enum.RaycastFilterType.Blacklist
+mouse.Button1Down:Connect(function()
+	isMouseDown = true
+end)
 
-		local unitRay = workspace.CurrentCamera:ScreenPointToRay(mouse.X, mouse.Y)
-		local raycastResult = workspace:Raycast(unitRay.Origin, unitRay.Direction * 1000, raycastParams)
+mouse.Button1Up:Connect(function()
+	isMouseDown = false
+end)
 
-		if raycastResult then
-			local hitPosition = raycastResult.Position
-			local hitNormal = raycastResult.Normal
-
-			local offset = hitNormal * (cursor.Size.Y / 2 + 0.05)
-			local cframe = CFrame.new(hitPosition + offset, hitPosition + hitNormal + offset)
-			remote:FireServer(cframe)
-		else
-			local camCFrame = workspace.CurrentCamera.CFrame
-			local noCF = camCFrame * CFrame.new(0, 0, -10)
-			remote:FireServer(noCF)
-		end
-	end)
+rs.Heartbeat:Connect(function()
+	local raycastParams = RaycastParams.new()
+	raycastParams.FilterDescendantsInstances = {cursor}
+	raycastParams.FilterType = Enum.RaycastFilterType.Blacklist
+	local unitRay = workspace.CurrentCamera:ScreenPointToRay(mouse.X, mouse.Y)
+	local raycastResult = workspace:Raycast(unitRay.Origin, unitRay.Direction * 1000, raycastParams)
+	if raycastResult then
+		local hitPosition = raycastResult.Position
+		local hitNormal = raycastResult.Normal
+		local offset = hitNormal * (cursor.Size.Y / 2 + 0.05)
+		local cframe = CFrame.new(hitPosition + offset, hitPosition + hitNormal + offset)
+		remote:FireServer(cframe, isMouseDown)
+	else
+		local camCFrame = workspace.CurrentCamera.CFrame
+		local noCF = camCFrame * CFrame.new(0, 0, -10)
+		remote:FireServer(noCF, isMouseDown)
+	end
+end)
 ]])
