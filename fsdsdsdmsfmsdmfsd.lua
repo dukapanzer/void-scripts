@@ -11,11 +11,13 @@ cursor.Parent = char
 local image_label = cursor:WaitForChild("BillboardGui"):WaitForChild("ImageLabel")
 
 local image_size = image_label.Size
-
 local offset = Vector3.new(-image_size.X.Offset / 2, image_size.Y.Offset / 2, 0)
 
-remote.OnServerEvent:connect(function(plaeyr, mouse_position, mouse_held)
-	cursor.CFrame = CFrame.new(mouse_position + offset)
+remote.OnServerEvent:Connect(function(player, mouse_position, mouse_held, camera_cframe)
+	local look_vector = camera_cframe.LookVector
+	local adjusted_offset = offset * (mouse_position - camera_cframe.Position).Magnitude / 10
+
+	cursor.CFrame = CFrame.new(mouse_position + adjusted_offset)
 
 	if mouse_held then
 		image_label.ImageColor3 = Color3.new(1, 0, 0)
@@ -24,6 +26,7 @@ remote.OnServerEvent:connect(function(plaeyr, mouse_position, mouse_held)
 	end
 end)
 
+
 NLS([[
 local plr = owner
 local mouse = plr:GetMouse()
@@ -31,23 +34,24 @@ local char = plr.Character
 local cursor = char:WaitForChild("Cursor")
 local remote = char:WaitForChild("RemoteEvent")
 local hb = game:GetService("RunService").Heartbeat
+local cam = game.Workspace.CurrentCamera
 
 local mouse_held = false
 
-hb:connect(function()
+hb:Connect(function()
 	local mouse_position = mouse.Hit.Position
-	remote:FireServer(mouse_position, mouse_held)
+	remote:FireServer(mouse_position, mouse_held, cam.CFrame)
 end)
 
-mouse.Button1Down:connect(function()
+mouse.Button1Down:Connect(function()
 	local mouse_position = mouse.Hit.Position
 	mouse_held = true
-	remote:FireServer(mouse_position, mouse_held)
+	remote:FireServer(mouse_position, mouse_held, cam.CFrame)
 end)
 
-mouse.Button1Up:connect(function()
+mouse.Button1Up:Connect(function()
 	local mouse_position = mouse.Hit.Position
 	mouse_held = false
-	remote:FireServer(mouse_position, mouse_held)
+	remote:FireServer(mouse_position, mouse_held, cam.CFrame)
 end)
 ]])
