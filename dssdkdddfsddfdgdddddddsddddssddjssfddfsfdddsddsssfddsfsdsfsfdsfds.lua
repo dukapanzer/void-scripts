@@ -15,7 +15,7 @@ image_label.Parent.Size = UDim2.new(1, 0, 1, 0)
 
 local base_offset = Vector3.new(0.9, -0.9, 0)
 
-remote.OnServerEvent:Connect(function(player, mouse_position, mouse_held, camera_cframe, hit_part, right_held)
+remote.OnServerEvent:Connect(function(player, mouse_position, mouse_held, camera_cframe, hit_part)
 	local distance = (mouse_position - camera_cframe.Position).Magnitude
 
 	local adjusted_offset = base_offset * (distance / 50) 
@@ -34,12 +34,6 @@ remote.OnServerEvent:Connect(function(player, mouse_position, mouse_held, camera
 		else
 			warn("sorry if i make you mad but the part you clicked got detected as nil and i don't know what to move, sorry. you probably accidentaly clicked in the sky or missed the part? no idea..")
 		end
-		image_label.ImageColor3 = Color3.new(1, 0, 0)
-	else
-		image_label.ImageColor3 = Color3.new(1, 1, 1)
-	end
-
-	if right_held then
 		image_label.ImageColor3 = Color3.new(1, 0, 0)
 	else
 		image_label.ImageColor3 = Color3.new(1, 1, 1)
