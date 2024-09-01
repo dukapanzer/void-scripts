@@ -1,9 +1,6 @@
 local Assets = LoadAssets(110160236417085)
-local cursor
-table.foreach(Assets:Get("Cursor"))
-	cursor = Assets:Get("Cursor")
-	cursor.Parent = script
-end)
+local cursor = Assets:Get("Cursor")
+cursor.Parent = script
 
 local plr = owner
 local char = plr.Character
