@@ -10,14 +10,10 @@ remote.Parent = char
 cursor.Parent = char
 local image_label = cursor:WaitForChild("BillboardGui"):WaitForChild("ImageLabel")
 
-local image_size = image_label.Size
-local offset = Vector3.new(-image_size.X.Offset / 5, -image_size.Y.Offset / 2, 0)
+local offset = Vector3.new(0.1, -0.1, 0)  -- Adjust these values for fine-tuning
 
-remote.OnServerEvent:Connect(function(player, mouse_position, mouse_held, camera_cframe)
-	local look_vector = camera_cframe.LookVector
-	local adjusted_offset = offset * (mouse_position - camera_cframe.Position).Magnitude / 100
-
-	cursor.CFrame = CFrame.new(mouse_position + adjusted_offset)
+remote.OnServerEvent:Connect(function(player, mouse_position, mouse_held)
+	cursor.CFrame = CFrame.new(mouse_position + offset)
 
 	if mouse_held then
 		image_label.ImageColor3 = Color3.new(1, 0, 0)
