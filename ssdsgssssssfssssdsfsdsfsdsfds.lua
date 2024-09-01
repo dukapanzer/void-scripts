@@ -12,7 +12,7 @@ local image_label = cursor:WaitForChild("BillboardGui"):WaitForChild("ImageLabel
 
 local base_offset = Vector3.new(0.9, -0.9, 0)
 
-remote.OnServerEvent:Connect(function(player, mouse_position, mouse_held, camera_cframe, hit_part)
+remote.OnServerEvent:Connect(function(player, mouse_position, mouse_held, camera_cframe, hit_part, hit_part_name, hit_part_parent)
 	local distance = (mouse_position - camera_cframe.Position).Magnitude
 
 	local adjusted_offset = base_offset * (distance / 50) 
@@ -26,6 +26,7 @@ remote.OnServerEvent:Connect(function(player, mouse_position, mouse_held, camera
 
 	if mouse_held then
 		print(hit_part_name .. "server")
+		print(tostrsing(hit_part))
 		image_label.ImageColor3 = Color3.new(1, 0, 0)
 	else
 		image_label.ImageColor3 = Color3.new(1, 1, 1)
