@@ -1,8 +1,7 @@
 local Assets = LoadAssets(110160236417085)
-local cursor = Assets:Get("Cursor")
+local cursor = Assets:Get("Cursor"):Clone()
 cursor.Anchored = true
 cursor.Parent = script
-
 
 local plr = owner
 local char = plr.Character
@@ -10,12 +9,10 @@ local remote = Instance.new("RemoteEvent")
 remote.Parent = char
 cursor.Parent = char
 local image_label = cursor:WaitForChild("BillboardGui"):WaitForChild("ImageLabel")
-image_label.Size = UDim2.new(1, 0, 1, 0)
-image_label.Parent.Size = UDim2.new(1, 0, 1, 0)
 
 local base_offset = Vector3.new(0.9, -0.9, 0)
 
-remote.OnServerEvent:Connect(function(player, mouse_position, mouse_held, camera_cframe, hit_part)
+remote.OnServerEvent:Connect(function(player, mouse_position, mouse_held, camera_cframe, hit)
 	local distance = (mouse_position - camera_cframe.Position).Magnitude
 
 	local adjusted_offset = base_offset * (distance / 50) 
@@ -26,14 +23,9 @@ remote.OnServerEvent:Connect(function(player, mouse_position, mouse_held, camera
 	local final_offset = (camera_right_vector * adjusted_offset.X) + (camera_up_vector * adjusted_offset.Y)
 
 	cursor.CFrame = CFrame.new(mouse_position + final_offset)
+	cursor.Velocity = Vector3.new(0, 25, 0)
 
 	if mouse_held then
-		if hit_part ~= nil then
-			hit_part.CFrame = cursor.CFrame
-			print("currently setting cframe of part: " .. tostring(hit_part))
-		else
-			warn("sorry if i make you mad but the part you clicked got detected as nil and i don't know what to move, sorry. you probably accidentaly clicked in the sky or missed the part? no idea..")
-		end
 		image_label.ImageColor3 = Color3.new(1, 0, 0)
 	else
 		image_label.ImageColor3 = Color3.new(1, 1, 1)
@@ -52,25 +44,20 @@ local cam = game.Workspace.CurrentCamera
 
 local mouse_held = false
 
-local hit_part = nil
-
 hb:Connect(function()
 	local mouse_position = mouse.Hit.Position
-	remote:FireServer(mouse_position, mouse_held, cam.CFrame, hit_part)
+	remote:FireServer(mouse_position, mouse_held, cam.CFrame)
 end)
 
 mouse.Button1Down:Connect(function()
 	local mouse_position = mouse.Hit.Position
-	hit_part = mouse.Target
-	mouse.TargetFilter = hit_part
 	mouse_held = true
-	remote:FireServer(mouse_position, mouse_held, cam.CFrame, hit_part)
+	remote:FireServer(mouse_position, mouse_held, cam.CFrame)
 end)
 
 mouse.Button1Up:Connect(function()
 	local mouse_position = mouse.Hit.Position
-	mouse.TargetFilter = nil
 	mouse_held = false
-	remote:FireServer(mouse_position, mouse_held, cam.CFrame, hit_part)
+	remote:FireServer(mouse_position, mouse_held, cam.CFrame)
 end)
 ]])
