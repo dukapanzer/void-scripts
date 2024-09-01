@@ -2,10 +2,6 @@ local Assets = LoadAssets(110160236417085)
 local cursor = Assets:Get("Cursor"):Clone()
 cursor.Anchored = true
 cursor.Parent = script
-local blGUI = cursor:WaitForChild("BillboardGui")
-blGUI.Size = UDim2.new(1, 0, 1, 0)
-local image_label = blGUI:WaitForChild("ImageLabel")
-blGUI.Size = UDim2.new(1, 0, 1, 0)
 
 local plr = owner
 local char = plr.Character
