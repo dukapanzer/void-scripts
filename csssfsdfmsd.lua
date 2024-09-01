@@ -1,7 +1,7 @@
 local Assets = LoadAssets(110160236417085)
 local cursor
-table.foreach(Assets:Get("Cursor"), function(i,v)
-	cursor = v:Clone()
+table.foreach(Assets:Get("Cursor"))
+	cursor = Assets:Get("Cursor")
 	cursor.Parent = script
 end)
 
