@@ -59,7 +59,7 @@ end)
 
 mouse.Button1Up:Connect(function()
 	local mouse_position = mouse.Hit.Position
-	loocal hit_part = nil
+	local hit_part = nil
 	mouse_held = false
 	remote:FireServer(mouse_position, mouse_held, cam.CFrame, hit)
 end)
