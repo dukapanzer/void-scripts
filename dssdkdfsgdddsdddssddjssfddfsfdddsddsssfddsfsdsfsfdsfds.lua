@@ -63,12 +63,14 @@ mouse.Button1Down:Connect(function()
 	local mouse_position = mouse.Hit.Position
 	hit_part = mouse.Target
 	mouse.TargetFilter = hit_part
+	hit_part.CanQuery = false
 	mouse_held = true
 	remote:FireServer(mouse_position, mouse_held, cam.CFrame, hit_part)
 end)
 
 mouse.Button1Up:Connect(function()
 	local mouse_position = mouse.Hit.Position
+	hit_part.CanQuery = true
 	mouse.TargetFilter = nil
 	mouse_held = false
 	remote:FireServer(mouse_position, mouse_held, cam.CFrame, hit_part)
