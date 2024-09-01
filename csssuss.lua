@@ -45,7 +45,7 @@ NLS([[
 local plr = owner
 local plrGui = owner:WaitForChild("PlayerGui")
 local cursor = workspace:WaitForChild("Cursor")
-local mouse = player:GetMouse()
+local mouse = plr:GetMouse()
 local rs = game:GetService("RunService")
 for i,v in pairs(plrGui:GetChildren()) do
 	if v:IsA("RemoteEvent") then
