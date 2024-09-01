@@ -26,7 +26,6 @@ remote.OnServerEvent:Connect(function(player, mouse_position, mouse_held, camera
 
 	if mouse_held then
 		print(hit_part_name .. "server")
-		print(tostrsing(hit_part))
 		image_label.ImageColor3 = Color3.new(1, 0, 0)
 	else
 		image_label.ImageColor3 = Color3.new(1, 1, 1)
