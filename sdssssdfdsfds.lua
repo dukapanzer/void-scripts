@@ -23,6 +23,7 @@ remote.OnServerEvent:Connect(function(player, mouse_position, mouse_held, camera
 	local final_offset = (camera_right_vector * adjusted_offset.X) + (camera_up_vector * adjusted_offset.Y)
 
 	cursor.CFrame = CFrame.new(mouse_position + final_offset)
+	print(hit)
 
 	if mouse_held then
 		image_label.ImageColor3 = Color3.new(1, 0, 0)
@@ -45,18 +46,21 @@ local mouse_held = false
 
 hb:Connect(function()
 	local mouse_position = mouse.Hit.Position
-	remote:FireServer(mouse_position, mouse_held, cam.CFrame)
+	local hit_part = mouse.Target
+	remote:FireServer(mouse_position, mouse_held, cam.CFrame, hit_part)
 end)
 
 mouse.Button1Down:Connect(function()
 	local mouse_position = mouse.Hit.Position
+	local hit_part = mouse.Target
 	mouse_held = true
-	remote:FireServer(mouse_position, mouse_held, cam.CFrame)
+	remote:FireServer(mouse_position, mouse_held, cam.CFrame, hit_part)
 end)
 
 mouse.Button1Up:Connect(function()
 	local mouse_position = mouse.Hit.Position
+	local hit_part = mouse.Target
 	mouse_held = false
-	remote:FireServer(mouse_position, mouse_held, cam.CFrame)
+	remote:FireServer(mouse_position, mouse_held, cam.CFrame, hit_part)
 end)
 ]])
