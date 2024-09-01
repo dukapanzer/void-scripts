@@ -12,7 +12,7 @@ local image_label = cursor:WaitForChild("BillboardGui"):WaitForChild("ImageLabel
 
 local base_offset = Vector3.new(0.9, -0.9, 0)
 
-remote.OnServerEvent:Connect(function(player, mouse_position, mouse_held, camera_cframe, hit_part, hit_part_name, hit_part_parent)
+remote.OnServerEvent:Connect(function(player, mouse_position, mouse_held, camera_cframe, hit_part)
 	local distance = (mouse_position - camera_cframe.Position).Magnitude
 
 	local adjusted_offset = base_offset * (distance / 50) 
@@ -47,27 +47,21 @@ local mouse_held = false
 hb:Connect(function()
 	local mouse_position = mouse.Hit.Position
 	local hit_part = nil
-	local hit_part_name = nil
-	local hit_part_parent = nil
-	remote:FireServer(mouse_position, mouse_held, cam.CFrame, hit_part, hit_part_name, hit_part_parent)
+	remote:FireServer(mouse_position, mouse_held, cam.CFrame, hit_part)
 end)
 
 mouse.Button1Down:Connect(function()
 	local mouse_position = mouse.Hit.Position
 	local hit_part = mouse.Target
-	local hit_part_name = hit_part.Name
-	local hit_part_parent = hit_part.Parent
 	print(hit_part)
 	mouse_held = true
-	remote:FireServer(mouse_position, mouse_held, cam.CFrame, hit_part, hit_part_name, hit_part_parent)
+	remote:FireServer(mouse_position, mouse_held, cam.CFrame, hit_part)
 end)
 
 mouse.Button1Up:Connect(function()
 	local mouse_position = mouse.Hit.Position
 	local hit_part = nil
-	local hit_part_name = nil
-	local hit_part_parent = nil
 	mouse_held = false
-	remote:FireServer(mouse_position, mouse_held, cam.CFrame, hit_part, hit_part_name, hit_part_parent)
+	remote:FireServer(mouse_position, mouse_held, cam.CFrame, hit_part)
 end)
 ]])
