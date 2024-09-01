@@ -10,9 +10,9 @@ local Cursor = Instance.new("Part")
 Cursor.Parent = workspace
 Cursor.Size = Vector3.new(1, 1, 1)
 Cursor.Transparency = 1
-Cursor.CanCollide = false
-Cursor.CanTouch = false
-Cursor.CanQuery = false
+Cursor.CanCollide = true
+Cursor.CanTouch = true
+Cursor.CanQuery = true
 Cursor.Anchored = true
 Cursor.Name = "Cursor"
 local Attachment = Instance.new("Attachment")
@@ -50,7 +50,7 @@ local mouse = plr:GetMouse()
 local rs = game:GetService("RunService")
 local remote = plrGui:WaitForChild("RemoteEvent")
 
-	rs.RenderStepped:Connect(function()
+	rs.Heartbeat:Connect(function()
 		local raycastParams = RaycastParams.new()
 		raycastParams.FilterDescendantsInstances = {cursor}
 		raycastParams.FilterType = Enum.RaycastFilterType.Blacklist
