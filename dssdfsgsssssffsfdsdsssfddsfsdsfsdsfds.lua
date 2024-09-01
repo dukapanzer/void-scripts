@@ -44,6 +44,8 @@ local cam = game.Workspace.CurrentCamera
 
 local mouse_held = false
 
+local hit_part = nil
+
 hb:Connect(function()
 	local mouse_position = mouse.Hit.Position
 	remote:FireServer(mouse_position, mouse_held, cam.CFrame)
@@ -51,7 +53,7 @@ end)
 
 mouse.Button1Down:Connect(function()
 	local mouse_position = mouse.Hit.Position
-	local hit_part = mouse.Target
+	hit_part = mouse.Target
 	print(hit_part)
 	mouse_held = true
 	remote:FireServer(mouse_position, mouse_held, cam.CFrame, hit_part)
