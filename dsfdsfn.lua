@@ -40,5 +40,5 @@ end)
 mouse.Button1Up:connect(function()
 	mouse_held = false
 	remote:FireServer(mouse_held)
-end
+end)
 ]])
