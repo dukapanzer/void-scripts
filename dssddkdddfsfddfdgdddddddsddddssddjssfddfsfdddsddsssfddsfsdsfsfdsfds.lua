@@ -49,7 +49,7 @@ remote.OnServerEvent:Connect(function(player, right_held)
 	else
 		image_label.ImageColor3 = Color3.new(1, 1, 1)
 	end
-end	
+end)
 
 NLS([[
 local plr = owner
