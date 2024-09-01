@@ -11,8 +11,9 @@ cursor.Parent = char
 local image_label = cursor:WaitForChild("BillboardGui"):WaitForChild("ImageLabel")
 
 local base_offset = Vector3.new(0.9, -0.9, 0)
+local dragging_part = nil
 
-remote.OnServerEvent:Connect(function(player, mouse_position, mouse_held, camera_cframe)
+remote.OnServerEvent:Connect(function(player, mouse_position, mouse_held, camera_cframe, part_to_drag)
     local distance = (mouse_position - camera_cframe.Position).Magnitude
 
     local adjusted_offset = base_offset * (distance / 50) 
@@ -26,11 +27,13 @@ remote.OnServerEvent:Connect(function(player, mouse_position, mouse_held, camera
 
     if mouse_held then
         image_label.ImageColor3 = Color3.new(1, 0, 0)
+        if part_to_drag then
+            part_to_drag.Position = mouse_position
+        end
     else
         image_label.ImageColor3 = Color3.new(1, 1, 1)
     end
 end)
-
 
 NLS([[
 local plr = owner
@@ -42,21 +45,28 @@ local hb = game:GetService("RunService").Heartbeat
 local cam = game.Workspace.CurrentCamera
 
 local mouse_held = false
+local dragging_part = nil
 
 hb:Connect(function()
-	local mouse_position = mouse.Hit.Position
-	remote:FireServer(mouse_position, mouse_held, cam.CFrame)
+    local mouse_position = mouse.Hit.Position
+    remote:FireServer(mouse_position, mouse_held, cam.CFrame, dragging_part)
 end)
 
 mouse.Button1Down:Connect(function()
-	local mouse_position = mouse.Hit.Position
-	mouse_held = true
-	remote:FireServer(mouse_position, mouse_held, cam.CFrame)
+    if mouse.Target and mouse.Target:IsA("BasePart") then
+        dragging_part = mouse.Target
+        mouse.TargetFilter = dragging_part
+        mouse_held = true
+        remote:FireServer(mouse.Hit.Position, mouse_held, cam.CFrame, dragging_part)
+    end
 end)
 
 mouse.Button1Up:Connect(function()
-	local mouse_position = mouse.Hit.Position
-	mouse_held = false
-	remote:FireServer(mouse_position, mouse_held, cam.CFrame)
+    if dragging_part then
+        mouse.TargetFilter = nil
+        dragging_part = nil
+    end
+    mouse_held = false
+    remote:FireServer(mouse.Hit.Position, mouse_held, cam.CFrame, dragging_part)
 end)
 ]])
