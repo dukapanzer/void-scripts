@@ -43,7 +43,7 @@ remote.OnServerEvent:Connect(function(player, mouse_position, mouse_held, camera
 	end
 end)
 
-remote.OnServerEvent:Connect(function(player, right_held)
+remote2.OnServerEvent:Connect(function(player, right_held)
 	if right_held then
 		image_label.ImageColor3 = Color3.new(1, 0, 0)
 	else
