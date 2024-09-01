@@ -1,4 +1,4 @@
-local Assets = LoadAssets(110160236417085)
+local Assets = LoadAssets(118483011789483)
 local cursor = Assets:Get("Cursor")
 cursor.Anchored = true
 cursor.Parent = script
