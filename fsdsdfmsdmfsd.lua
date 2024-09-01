@@ -10,9 +10,13 @@ remote.Parent = char
 cursor.Parent = char
 local image_label = cursor:WaitForChild("BillboardGui"):WaitForChild("ImageLabel")
 
+local image_size = image_label.Size
+
+local offset = Vector3.new(-image_size.X.Offset / 2, image_size.Y.Offset / 2, 0)
+
 remote.OnServerEvent:connect(function(plaeyr, mouse_position, mouse_held)
-	cursor.CFrame = CFrame.new(mouse_position) * CFrame.new(0, -2, 0)
-	
+	cursor.CFrame = CFrame.new(mouse_position + offset)
+
 	if mouse_held then
 		image_label.ImageColor3 = Color3.new(1, 0, 0)
 	else
