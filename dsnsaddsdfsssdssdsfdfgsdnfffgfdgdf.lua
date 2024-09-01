@@ -10,7 +10,7 @@ remote.Parent = char
 cursor.Parent = char
 local image_label = cursor:WaitForChild("BillboardGui"):WaitForChild("ImageLabel")
 
-local offset = Vector3.new(0.1, -0.1, 0)  -- Adjust these values for fine-tuning
+local offset = Vector3.new(0.5, -0.5, 0)  -- Adjust these values for fine-tuning
 
 remote.OnServerEvent:Connect(function(player, mouse_position, mouse_held)
 	cursor.CFrame = CFrame.new(mouse_position + offset)
