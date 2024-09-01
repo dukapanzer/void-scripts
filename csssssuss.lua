@@ -49,7 +49,6 @@ local mouse = plr:GetMouse()
 local rs = game:GetService("RunService")
 local remote = plrGui:WaitForChild("RemoteEvent")
 
-remote.OnClientEvent:Connect(function()
 	rs.RenderStepped:Connect(function()
 		local raycastParams = RaycastParams.new()
 		raycastParams.FilterDescendantsInstances = {cursor}
@@ -71,5 +70,4 @@ remote.OnClientEvent:Connect(function()
 			remote:FireServer(noCF)
 		end
 	end)
-end)
 ]])
