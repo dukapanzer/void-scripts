@@ -10,7 +10,7 @@ remote.Parent = char
 cursor.Parent = char
 local image_label = cursor:WaitForChild("BillboardGui"):WaitForChild("ImageLabel")
 
-local base_offset = Vector3.new(-0.4, -0.3, 0)
+local base_offset = Vector3.new(-0.5, -0.2, 0)
 
 remote.OnServerEvent:Connect(function(player, mouse_position, mouse_held, camera_cframe)
     local distance = (mouse_position - camera_cframe.Position).Magnitude
