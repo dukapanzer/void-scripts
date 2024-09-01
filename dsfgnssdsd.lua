@@ -11,7 +11,7 @@ cursor.Parent = char
 local image_label = cursor:WaitForChild("BillboardGui"):WaitForChild("ImageLabel")
 
 remote.OnServerEvent:connect(function(plaeyr, mouse_position, mouse_held)
-	cursor.CFrame = CFrame.new(mouse_position)
+	cursor.CFrame = CFrame.new(mouse_position) * CFrame.new(0, -2, 0)
 	
 	if mouse_held then
 		image_label.ImageColor3 = Color3.new(1, 0, 0)
@@ -36,11 +36,13 @@ hb:connect(function()
 end)
 
 mouse.Button1Down:connect(function()
+	local mouse_position = mouse.Hit.Position
 	mouse_held = true
 	remote:FireServer(mouse_position, mouse_held)
 end)
 
 mouse.Button1Up:connect(function()
+	local mouse_position = mouse.Hit.Position
 	mouse_held = false
 	remote:FireServer(mouse_position, mouse_held)
 end)
