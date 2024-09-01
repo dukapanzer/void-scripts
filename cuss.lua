@@ -41,7 +41,7 @@ remote.OnServerEvent:connect(function(player, pos)
 	Cursor.CFrame = pos
 end)
 
-NLS[[(
+NLS([[
 local plr = owner
 local plrGui = owner:WaitForChild("PlayerGui")
 local cursor = workspace:WaitForChild("Cursor")
