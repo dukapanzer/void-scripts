@@ -47,11 +47,7 @@ local plrGui = owner:WaitForChild("PlayerGui")
 local cursor = workspace:WaitForChild("Cursor")
 local mouse = plr:GetMouse()
 local rs = game:GetService("RunService")
-for i,v in pairs(plrGui:GetChildren()) do
-	if v:IsA("RemoteEvent") then
-		local remote = v
-	end
-end
+local remote = plrGui:WaitForChild("RemoteEvent")
 
 remote.OnClientEvent:Connect(function()
 	rs.RenderStepped:Connect(function()
