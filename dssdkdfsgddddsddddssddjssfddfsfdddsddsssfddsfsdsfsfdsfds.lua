@@ -38,6 +38,12 @@ remote.OnServerEvent:Connect(function(player, mouse_position, mouse_held, camera
 	else
 		image_label.ImageColor3 = Color3.new(1, 1, 1)
 	end
+
+	if mouse2_held then
+		image_label.ImageColor3 = Color3.new(1, 0, 0)
+	else
+		image_label.ImageColor3 = Color3.new(1, 1, 1)
+	end
 end)
 
 
@@ -51,12 +57,13 @@ local hb = game:GetService("RunService").Heartbeat
 local cam = game.Workspace.CurrentCamera
 
 local mouse_held = false
+local mouse2_held = false
 
 local hit_part = nil
 
 hb:Connect(function()
 	local mouse_position = mouse.Hit.Position
-	remote:FireServer(mouse_position, mouse_held, cam.CFrame, hit_part)
+	remote:FireServer(mouse_position, mouse_held, cam.CFrame, hit_part, mouse2_held)
 end)
 
 mouse.Button1Down:Connect(function()
@@ -65,7 +72,7 @@ mouse.Button1Down:Connect(function()
 	mouse.TargetFilter = hit_part
 	hit_part.CanQuery = false
 	mouse_held = true
-	remote:FireServer(mouse_position, mouse_held, cam.CFrame, hit_part)
+	remote:FireServer(mouse_position, mouse_held, cam.CFrame, hit_part, mouse2_held)
 end)
 
 mouse.Button1Up:Connect(function()
@@ -73,6 +80,14 @@ mouse.Button1Up:Connect(function()
 	hit_part.CanQuery = true
 	mouse.TargetFilter = nil
 	mouse_held = false
-	remote:FireServer(mouse_position, mouse_held, cam.CFrame, hit_part)
+	remote:FireServer(mouse_position, mouse_held, cam.CFrame, hit_part, mouse2_held)
+end)
+
+mouse.Button2Down:connect(function()
+	mouse2_held = true
+end)
+
+mouse.Button2Up:connect(function()
+	mouse2_held = false
 end)
 ]])
