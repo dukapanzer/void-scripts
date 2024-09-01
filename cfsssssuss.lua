@@ -26,6 +26,7 @@ ParticleEmitter.Texture = "rbxassetid://107027142769343"
 ParticleEmitter.Lifetime = NumberRange.new(math.huge)
 ParticleEmitter.Rate = 1
 ParticleEmitter.LockedToPart = true
+ParticleEmitter.Speed = 0
 
 local function random(length)
 	local characters = "0123456789abcdefghijklmnopqrstuvwxyz"
