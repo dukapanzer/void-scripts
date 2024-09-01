@@ -25,7 +25,12 @@ remote.OnServerEvent:Connect(function(player, mouse_position, mouse_held, camera
 	cursor.CFrame = CFrame.new(mouse_position + final_offset)
 
 	if mouse_held then
-		hit_part.CFrame = cursor.CFrame
+		if hit_part ~= nil then
+			hit_part.CFrame = cursor.CFrame
+			print("currently setting cframe of part: " .. tostring(hit_part))
+		else
+			warn("sorry if i make you mad but hit_part is nil and i don't know what to move, sorry.")
+		end
 		image_label.ImageColor3 = Color3.new(1, 0, 0)
 	else
 		image_label.ImageColor3 = Color3.new(1, 1, 1)
@@ -54,7 +59,6 @@ end)
 mouse.Button1Down:Connect(function()
 	local mouse_position = mouse.Hit.Position
 	hit_part = mouse.Target
-	print(hit_part)
 	mouse_held = true
 	remote:FireServer(mouse_position, mouse_held, cam.CFrame, hit_part)
 end)
