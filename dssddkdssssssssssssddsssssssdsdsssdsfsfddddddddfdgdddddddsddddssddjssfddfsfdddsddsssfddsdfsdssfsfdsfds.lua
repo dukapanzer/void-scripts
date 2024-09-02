@@ -66,7 +66,13 @@ mouse.Button1Down:connect(function()
 end)
 
 mouse.Button1Up:connect(function()
-	table.remove(mouse_filter, 3)
+	for i, part in ipairs(mouse_filter) do
+		if part == hit_part then
+			table.remove(mouse_filter, i)
+			break
+		end
+	end
+	
 	hit_part = nil
 	mouse_held = false
 end)
