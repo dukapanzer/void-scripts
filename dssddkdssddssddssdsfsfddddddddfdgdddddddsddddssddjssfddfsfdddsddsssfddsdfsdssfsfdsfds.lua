@@ -47,9 +47,8 @@ hb:Connect(function()
 	local mouse_position = mouse.Hit.Position
 	fakePart.CFrame = fakePart.CFrame:Lerp(CFrame.new(mouse_position), 0.4)
 	cursor.CFrame = fakePart.CFrame
-	for _, mouse_filter in ipairs(mouse_filter) do
-    		print(mouse_filter.Name)
+	for _, table in ipairs(mouse_filter) do
+    		mouse.TargetFilter = table
 	end
-	mouse.TargetFilter = mouse_filter
 end)
 ]])
