@@ -14,6 +14,8 @@ local image_label = cursor:WaitForChild("BillboardGui"):WaitForChild("ImageLabel
 image_label.Size = UDim2.new(1, 0, 1, 0)
 image_label.Parent.Size = UDim2.new(1, 0, 1, 0)
 
+local previous_owner = nil
+
 remote.OnServerEvent:connect(function(player, hit_part, mouse_held)
 	if mouse_held then
 		image_label.ImageColor3 = Color3.new(1, 0, 0)
@@ -22,16 +24,16 @@ remote.OnServerEvent:connect(function(player, hit_part, mouse_held)
 		return
 	end
 
-	if mouse_held then
-		if hit_part then
-			if hit_part:IsA("BasePart") then
-				local previous_owner = hit_part:GetNetworkOwner()
-				hit_part.Anchored = false
-				hit_part:SetNetworkOwner(plr)
-				if not mouse_held then
-					hit_part:SetNetworkOwner(previous_owner)
-				end
-			end
+	if hit_part then
+		if hit_part:IsA("BasePart") then
+			previous_owner = hit_part:GetNetworkOwner()
+			hit_part.Anchored = false
+			hit_part:SetNetworkOwner(plr)
+		end
+
+		if not mouse_held then
+			hit_part:SetNetworkOwner(previous_owner)
+			print("set " .. hit_part.Name .. " ownership to " .. tostring(previous_owner))
 		end
 	end
 end)
