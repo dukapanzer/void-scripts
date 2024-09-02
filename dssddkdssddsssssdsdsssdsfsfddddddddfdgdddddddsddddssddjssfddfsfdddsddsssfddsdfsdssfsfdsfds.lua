@@ -56,7 +56,7 @@ table.insert(mouse_filter, fakePart)
 
 mouse.Button1Down:connect(function()
 	hit_part = mouse.Target
-	table.insert(hit_part)
+	table.insert(mouse_filter, hit_part)
 	mouse_held = true
 end)
 
