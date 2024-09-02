@@ -16,6 +16,10 @@ local image_label = cursor:WaitForChild("BillboardGui"):WaitForChild("ImageLabel
 image_label.Size = UDim2.new(1, 0, 1, 0)
 image_label.Parent.Size = UDim2.new(1, 0, 1, 0)
 
+game:GetService("RunService").Heartbeat:connect(function()
+	cursor:SetNetworkOwner(plr)
+end)
+
 NLS([[
 local plr = owner
 local mouse = plr:GetMouse()
@@ -32,7 +36,8 @@ local fakePart = Instance.new("Part")
 fakePart.Size = cursor.Size
 fakePart.Anchored = true
 fakePart.Parent = workspace
-
+fakePart.Transparency = 1
+	
 local hit_part = nil
 
 hb:Connect(function()
