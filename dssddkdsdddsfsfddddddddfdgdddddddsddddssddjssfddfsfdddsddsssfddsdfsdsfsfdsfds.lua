@@ -28,16 +28,7 @@ remote2.OnServerEvent:Connect(function(player, right_held)
 end)
 
 remote.OnServerEvent:Connect(function(player, mouse_position, mouse_held, camera_cframe, hit_part)
-	local distance = (mouse_position - camera_cframe.Position).Magnitude
-
-	local adjusted_offset = base_offset * (distance / 50) 
-
-	local camera_right_vector = camera_cframe.RightVector
-	local camera_up_vector = camera_cframe.UpVector
-
-	local final_offset = (camera_right_vector * adjusted_offset.X) + (camera_up_vector * adjusted_offset.Y)
-
-	cursor.CFrame = CFrame.new(mouse_position + final_offset)
+	cursor.CFrame = CFrame.new(mouse_position)
 
 	if mouse_held then
 		if hit_part ~= nil then
