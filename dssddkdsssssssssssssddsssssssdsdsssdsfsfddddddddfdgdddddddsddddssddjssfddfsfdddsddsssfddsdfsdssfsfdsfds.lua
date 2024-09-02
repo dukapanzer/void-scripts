@@ -25,8 +25,12 @@ remote.OnServerEvent:connect(function(player, hit_part, mouse_held)
 	if mouse_held then
 		if hit_part then
 			if hit_part:IsA("BasePart") then
+				local previous_owner = hit_part:GetNetworkOwner()
 				hit_part.Anchored = false
 				hit_part:SetNetworkOwner(plr)
+				if not mouse_held then
+					hit_part:SetNetworkOwner(previous_owner)
+				end
 			end
 		end
 	end
