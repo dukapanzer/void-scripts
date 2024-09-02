@@ -38,5 +38,6 @@ local hit_part = nil
 hb:Connect(function()
 	local mouse_position = mouse.Hit.Position
 	fakePart.CFrame = fakePart.CFrame:Lerp(CFrame.new(mouse_position), 0.1)
+	cursor.CFrame = fakePart.CFrame
 end)
 ]])
