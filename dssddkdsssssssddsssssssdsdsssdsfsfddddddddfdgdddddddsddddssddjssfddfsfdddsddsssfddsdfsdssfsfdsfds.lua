@@ -17,12 +17,14 @@ image_label.Parent.Size = UDim2.new(1, 0, 1, 0)
 remote.OnServerEvent:connect(function(player, hit_part, mouse_held)
 	if mouse_held then
 		image_label.ImageColor3 = Color3.new(1, 0, 0)
-		if hit_part then
-			if hit_part:IsA("BasePart") then
-				hit_part.Anchored = false
-				hit_part:SetNetworkOwner(plr)
+		pcall(function()
+			if hit_part then
+				if hit_part:IsA("BasePart") then
+					hit_part.Anchored = false
+					hit_part:SetNetworkOwner(plr)
+				end
 			end
-		end
+		end)		
 	else
 		image_label.ImageColor3 = Color3.new(1, 1, 1)
 		return
@@ -70,7 +72,7 @@ end)
 
 hb:Connect(function()
 	local mouse_position = mouse.Hit.Position
-	fakePart.CFrame = fakePart.CFrame:Lerp(CFrame.new(mouse_position), 0.05)
+	fakePart.CFrame = fakePart.CFrame:Lerp(CFrame.new(mouse_position), 0.08)
 	cursor.CFrame = fakePart.CFrame
 	for _, table in ipairs(mouse_filter) do
     		mouse.TargetFilter = table
