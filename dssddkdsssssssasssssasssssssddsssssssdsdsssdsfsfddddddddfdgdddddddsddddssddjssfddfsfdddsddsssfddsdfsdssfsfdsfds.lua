@@ -21,15 +21,12 @@ remote.OnServerEvent:connect(function(player, hit_part, mouse_held)
 		image_label.ImageColor3 = Color3.new(1, 0, 0)
 		if hit_part then
 			if hit_part:IsA("BasePart") then
-				previous_owner = hit_part:GetNetworkOwner()
-				hit_part.Anchored = false
-				hit_part:SetNetworkOwner(plr)
+				hit_part.CFrame = cursor.CFrame
 			end
 		end
 	
 	else
 		image_label.ImageColor3 = Color3.new(1, 1, 1)
-		hit_part:SetNetworkOwner(previous_owner)
 		return
 	end
 end)
