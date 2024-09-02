@@ -17,7 +17,7 @@ image_label.Parent.Size = UDim2.new(1, 0, 1, 0)
 remote.OnServerEvent:connect(function(player, hit_part, mouse_held)
 	if mouse_held then
 		image_label.ImageColor3 = Color3.new(1, 0, 0)
-		if hit_part:IsA("BasePart") then
+		if hit_part:IsA("BasePart") and v.Locked ~= true then
 			hit_part.Anchored = false
 			hit_part:SetNetworkOwner(plr)
 		end
