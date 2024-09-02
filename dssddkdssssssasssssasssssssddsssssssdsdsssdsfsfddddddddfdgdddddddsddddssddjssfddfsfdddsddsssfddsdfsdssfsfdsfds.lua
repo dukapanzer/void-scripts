@@ -26,8 +26,7 @@ remote.OnServerEvent:connect(function(player, hit_part, mouse_held)
 				hit_part:SetNetworkOwner(plr)
 			end
 		end
-	end
-
+	
 	else
 		image_label.ImageColor3 = Color3.new(1, 1, 1)
 		hit_part:SetNetworkOwner(previous_owner)
@@ -47,7 +46,6 @@ local cursor = char:WaitForChild("Cursor")
 local remote = char:WaitForChild("remote")
 local hb = game:GetService("RunService").Heartbeat
 local cam = game.Workspace.CurrentCamera
-local hit_part = nil
 local right_held = false
 local mouse_held = false
 local hit_part = nil
