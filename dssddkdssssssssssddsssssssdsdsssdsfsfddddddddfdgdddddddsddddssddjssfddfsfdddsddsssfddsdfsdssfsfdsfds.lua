@@ -79,10 +79,6 @@ hb:Connect(function()
     		mouse.TargetFilter = table
 	end
 
-	if mouse_held then
-		remote:FireServer(hit_part, mouse_held)
-	else
-		return
-	end
+	remote:FireServer(hit_part, mouse_held)
 end)
 ]])
