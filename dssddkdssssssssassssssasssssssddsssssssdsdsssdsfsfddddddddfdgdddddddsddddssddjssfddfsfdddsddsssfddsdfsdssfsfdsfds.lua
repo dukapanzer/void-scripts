@@ -21,11 +21,13 @@ remote.OnServerEvent:connect(function(player, hit_part, mouse_held)
 		image_label.ImageColor3 = Color3.new(1, 0, 0)
 		if hit_part then
 			if hit_part:IsA("BasePart") then
+				hit_part.Anchored = true
 				hit_part.CFrame = cursor.CFrame
 			end
 		end
 	
 	else
+		hit_part.Anchored = false
 		image_label.ImageColor3 = Color3.new(1, 1, 1)
 		return
 	end
@@ -71,7 +73,6 @@ mouse.Button1Up:connect(function()
 		end
 	end
 	
-	hit_part = nil
 	mouse_held = false
 end)
 
