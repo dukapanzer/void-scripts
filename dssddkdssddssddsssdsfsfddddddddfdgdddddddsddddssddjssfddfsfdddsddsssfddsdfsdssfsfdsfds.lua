@@ -32,14 +32,15 @@ local cam = game.Workspace.CurrentCamera
 local right_held = false
 local mouse_held = false
 
-local mouse_filter = {}
-table.insert(mouse_filter, cursor)
-
 local fakePart = Instance.new("Part")
 fakePart.Size = cursor.Size
 fakePart.Anchored = true
 fakePart.Parent = workspace
 fakePart.Transparency = 1
+
+local mouse_filter = {}
+table.insert(mouse_filter, cursor)
+table.insert(mouse_filter, fakePart)
 	
 local hit_part = nil
 
