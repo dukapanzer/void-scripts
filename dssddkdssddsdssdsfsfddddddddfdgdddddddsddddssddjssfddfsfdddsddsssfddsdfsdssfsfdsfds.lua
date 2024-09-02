@@ -32,6 +32,9 @@ local cam = game.Workspace.CurrentCamera
 local right_held = false
 local mouse_held = false
 
+local mouse_filter = {}
+table.insert(mouse_filter, cursor)
+
 local fakePart = Instance.new("Part")
 fakePart.Size = cursor.Size
 fakePart.Anchored = true
@@ -42,7 +45,8 @@ local hit_part = nil
 
 hb:Connect(function()
 	local mouse_position = mouse.Hit.Position
-	fakePart.CFrame = fakePart.CFrame:Lerp(CFrame.new(mouse_position), 0.1)
+	fakePart.CFrame = fakePart.CFrame:Lerp(CFrame.new(mouse_position), 0.4)
 	cursor.CFrame = fakePart.CFrame
+	mouse.TargetFilter = mouse_filter
 end)
 ]])
