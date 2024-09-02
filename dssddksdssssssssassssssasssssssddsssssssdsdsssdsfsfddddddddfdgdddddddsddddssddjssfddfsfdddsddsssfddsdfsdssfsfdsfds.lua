@@ -62,6 +62,11 @@ table.insert(mouse_filter, fakePart)
 mouse.Button1Down:connect(function()
 	hit_part = mouse.Target
 	table.insert(mouse_filter, hit_part)
+	if hit_part then
+		if hit_part:IsA("BasePart") then
+			hit_part.CanQuery = false
+		end
+	end
 	mouse_held = true
 end)
 
@@ -70,6 +75,12 @@ mouse.Button1Up:connect(function()
 		if part == hit_part then
 			table.remove(mouse_filter, i)
 			break
+		end
+	end
+	
+	if hit_part then
+		if hit_part:IsA("BasePart") then
+			hit_part.CanQuery = true
 		end
 	end
 	
