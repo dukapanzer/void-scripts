@@ -41,7 +41,7 @@ remote.OnServerEvent:Connect(function(player, mouse_position, mouse_held, camera
 
 	if mouse_held then
 		if hit_part ~= nil then
-			hit_part.CFrame = cursor.CFrame
+			hit_part.CFrame = cursor.CFrame * CFrame.new(0, 3, 0)
 			print("currently setting cframe of part: " .. tostring(hit_part))
 		else
 			warn("sorry if i make you mad but the part you clicked got detected as nil and i don't know what to move, sorry. you probably accidentaly clicked in the sky or missed the part? no idea..")
