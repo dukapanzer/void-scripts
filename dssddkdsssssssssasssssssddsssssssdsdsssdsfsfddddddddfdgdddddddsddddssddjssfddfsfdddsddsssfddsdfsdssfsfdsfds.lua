@@ -19,22 +19,19 @@ local previous_owner = nil
 remote.OnServerEvent:connect(function(player, hit_part, mouse_held)
 	if mouse_held then
 		image_label.ImageColor3 = Color3.new(1, 0, 0)
-	else
-		image_label.ImageColor3 = Color3.new(1, 1, 1)
-		return
+		if hit_part then
+			if hit_part:IsA("BasePart") then
+				previous_owner = hit_part:GetNetworkOwner()
+				hit_part.Anchored = false
+				hit_part:SetNetworkOwner(plr)
+			end
+		end
 	end
 
-	if hit_part then
-		if hit_part:IsA("BasePart") then
-			previous_owner = hit_part:GetNetworkOwner()
-			hit_part.Anchored = false
-			hit_part:SetNetworkOwner(plr)
-		end
-
-		if not mouse_held then
-			hit_part:SetNetworkOwner(previous_owner)
-			print("set " .. hit_part.Name .. " ownership to " .. tostring(previous_owner))
-		end
+	else
+		image_label.ImageColor3 = Color3.new(1, 1, 1)
+		hit_part:SetNetworkOwner(previous_owner)
+		return
 	end
 end)
 
