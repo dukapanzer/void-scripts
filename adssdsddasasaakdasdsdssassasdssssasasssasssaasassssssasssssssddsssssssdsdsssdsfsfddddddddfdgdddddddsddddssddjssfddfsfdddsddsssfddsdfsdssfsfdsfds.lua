@@ -41,7 +41,7 @@ end)
 
 remote2.OnServerEvent:connect(function(player, hit_part, right_held)
 	if right_held then
-		image_label.ImageColor3 = Color3.new(0, 0, 0)
+		image_label.ImageColor3 = Color3.new(1, 0, 0)
 		part:WaitForChild("SurfaceGui").Enabled = true
 		part.CFrame = cursor.CFrame
 	end
