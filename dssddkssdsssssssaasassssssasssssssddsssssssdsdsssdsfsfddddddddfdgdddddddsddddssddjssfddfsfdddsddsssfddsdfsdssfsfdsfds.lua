@@ -1,7 +1,8 @@
-local Assets = LoadAssets(110160236417085)
-local cursor = Assets:Get("Cursor")
+local Assets = LoadAssets(92282790242091)
+local cursor = Assets:Get("Cursor"):Clone()
 cursor.Anchored = false
 cursor.Parent = script
+local part = cursor:WaitforChild("Part")
 
 local plr = owner
 local char = plr.Character
@@ -10,6 +11,8 @@ remote.Parent = char
 remote.Name = "remote"
 cursor.Parent = char
 local remote2 = Instance.new("RemoteEvent")
+remote.Parent = char
+remote.Name = "remote2"
 local image_label = cursor:WaitForChild("BillboardGui"):WaitForChild("ImageLabel")
 image_label.Size = UDim2.new(1, 0, 1, 0)
 image_label.Parent.Size = UDim2.new(3, 0, 3, 0)
@@ -37,12 +40,25 @@ game:GetService("RunService").Heartbeat:connect(function()
 	cursor:SetNetworkOwner(plr)
 end)
 
+remote2.OnServerEvent:connect(function(player, hit_part, right_held)
+	if right_held then
+		image_label.ImageColor3 = Color3.new(0, 0, 0)
+		part:WaitForChild("SurfaceGui").Enabled = true
+		part.CFrame = cursor.CFrame
+	end
+
+	if not right_held then
+		image_label.ImageColor3 = Color3.new(1, 1, 1)
+	end
+end)
+
 NLS([[
 local plr = owner
 local mouse = plr:GetMouse()
 local char = plr.Character
 local cursor = char:WaitForChild("Cursor")
 local remote = char:WaitForChild("remote")
+local remote2 = char:WaitForChild("remote2")
 local hb = game:GetService("RunService").Heartbeat
 local cam = game.Workspace.CurrentCamera
 local right_held = false
@@ -96,5 +112,12 @@ hb:Connect(function()
 	end
 
 	remote:FireServer(hit_part, mouse_held)
-end)
+	remote2:FireServer(hit_part, right_held)
+end
+
+mouse.Button1Down:connect(function()
+	right_held = true
+else
+	right_held = false
+end
 ]])
