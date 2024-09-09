@@ -128,7 +128,6 @@ table.insert(mouse_filter, fakePart)
 
 mouse.Button1Down:connect(function()
 	hit_part = mouse.Target
-	table.insert(mouse_filter, hit_part)
 	if hit_part then
 		if hit_part:IsA("BasePart") then
 			hit_part.CanQuery = false
@@ -169,7 +168,6 @@ end)
 mouse.Button2Down:connect(function()
 	right_held = true
 	hit_part = mouse.Target
-	table.insert(mouse_filter, hit_part)
 	remote2:FireServer(hit_part, right_held)
 	return
 end)
