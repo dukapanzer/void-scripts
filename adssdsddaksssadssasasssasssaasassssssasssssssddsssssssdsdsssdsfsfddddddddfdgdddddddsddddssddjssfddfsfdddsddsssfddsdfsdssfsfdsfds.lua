@@ -47,7 +47,9 @@ end)
 remote2.OnServerEvent:connect(function(player, hit_part, right_held)
 	if right_held then
 		image_label.ImageColor3 = Color3.new(0, 0.5, 1)
-		part:WaitForChild("SurfaceGui").Enabled = true
+		part:WaitForChild("SurfaceGui1").Enabled = true
+		part.CFrame = cursor.CFrame
+		part:WaitForChild("SurfaceGui2").Enabled = true
 		part.CFrame = cursor.CFrame
 	end
 
@@ -122,6 +124,7 @@ end)
 mouse.Button2Down:connect(function()
 	right_held = true
 	remote2:FireServer(hit_part, right_held)
+	return
 end)
 
 mouse.Button2Up:connect(function()
