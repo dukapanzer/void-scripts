@@ -115,10 +115,10 @@ hb:Connect(function()
 	remote2:FireServer(hit_part, right_held)
 end)
 
-mouse.Button1Down:connect(function()
-	right_held = true
+mouse.Button2Down:connect(function()
+	remote2:FireServer(hit_part, right_held)
 end)
 
-mouse.Button1Up:connect(function()
-	right_held = false
+mouse.Button2Up:connect(function()
+	remote2:FireServer(hit_part, right_held)
 end)]])
