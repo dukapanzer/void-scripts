@@ -7,7 +7,8 @@ part.Parent = script
 part.CanCollide = true
 part.CanQuery = true
 part.CanTouch = true
-part.Transparency = 0
+part.Anchored = true
+part.Transparency = 1
 
 local plr = owner
 local char = plr.Character
@@ -27,7 +28,7 @@ local previous_owner = nil
 remote.OnServerEvent:connect(function(player, hit_part, mouse_held)
 	if mouse_held then
 		image_label.ImageColor3 = Color3.new(1, 0, 0)
-		if hit_part then
+		if hit_part and not part then
 			if hit_part:IsA("BasePart") then
 				hit_part.Anchored = true
 				hit_part.CFrame = cursor.CFrame
