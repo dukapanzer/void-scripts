@@ -2,7 +2,7 @@ local Assets = LoadAssets(92282790242091)
 local cursor = Assets:Get("Cursor"):Clone()
 cursor.Anchored = false
 cursor.Parent = script
-local part = cursor:WaitforChild("Part")
+local part = cursor:WaitForChild("Part")
 
 local plr = owner
 local char = plr.Character
