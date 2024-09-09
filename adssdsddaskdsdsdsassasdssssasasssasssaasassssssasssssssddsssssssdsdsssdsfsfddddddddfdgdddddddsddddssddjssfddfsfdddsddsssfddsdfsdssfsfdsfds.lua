@@ -106,7 +106,7 @@ local sf2 = bart:WaitForChild("SurfaceGui2")
 local delete1 = sf1:WaitForChild("delete")
 local delete2 = sf2:WaitForChild("delete")
 local duplicate1 = sf1:WaitForChild("duplicate")
-local duplicate2 = sf2:WaitforChild("duplicate")
+local duplicate2 = sf2:WaitForChild("duplicate")
 local unanchor1 = sf1:WaitForChild("unanchor")
 local unanchor2 = sf2:WaitForChild("unanchor")
 
