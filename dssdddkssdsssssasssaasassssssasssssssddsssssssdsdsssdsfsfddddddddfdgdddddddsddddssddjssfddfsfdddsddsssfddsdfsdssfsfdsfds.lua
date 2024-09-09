@@ -113,7 +113,7 @@ hb:Connect(function()
 
 	remote:FireServer(hit_part, mouse_held)
 	remote2:FireServer(hit_part, right_held)
-end
+end)
 
 mouse.Button1Down:connect(function()
 	right_held = true
