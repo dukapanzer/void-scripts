@@ -6,7 +6,7 @@ local part = cursor:WaitForChild("Part")
 part.CanCollide = true
 part.CanQuery = true
 part.CanTouch = true
-part.Transparency = 0.999999
+part.Transparency = 0
 
 local plr = owner
 local char = plr.Character
@@ -36,7 +36,7 @@ remote.OnServerEvent:connect(function(player, hit_part, mouse_held)
 	else
 		hit_part.Anchored = false
 		image_label.ImageColor3 = Color3.new(1, 1, 1)
-		return
+		--return
 	end
 end)
 
