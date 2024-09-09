@@ -1,8 +1,12 @@
-local Assets = LoadAssets(92282790242091)
+local Assets = LoadAssets(76512257771374)
 local cursor = Assets:Get("Cursor"):Clone()
 cursor.Anchored = false
 cursor.Parent = script
 local part = cursor:WaitForChild("Part")
+part.CanCollide = true
+part.CanQuery = true
+part.CanTouch = true
+part.Transparency = 0.999999
 
 local plr = owner
 local char = plr.Character
@@ -42,7 +46,7 @@ end)
 
 remote2.OnServerEvent:connect(function(player, hit_part, right_held)
 	if right_held then
-		image_label.ImageColor3 = Color3.new(0, 0, 0)
+		image_label.ImageColor3 = Color3.new(0, 0.5, 1)
 		part:WaitForChild("SurfaceGui").Enabled = true
 		part.CFrame = cursor.CFrame
 	end
@@ -123,4 +127,5 @@ end)
 mouse.Button2Up:connect(function()
 	right_held = false
 	remote2:FireServer(hit_part, right_held)
-end)]])
+end)
+)]]
