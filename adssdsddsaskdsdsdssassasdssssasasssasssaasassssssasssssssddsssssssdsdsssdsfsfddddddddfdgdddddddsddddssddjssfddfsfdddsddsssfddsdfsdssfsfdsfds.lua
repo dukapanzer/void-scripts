@@ -74,20 +74,20 @@ end)
 
 remote3.OnServerEvent:connect(function(player, hit_part, type)
 	if type == "anchor" then
-		if hit_part = ~= part then
+		if hit_part ~= part then
 			hit_part.Anchored = false
 		end
 	end
 
 	if type == "duplication" then
-		if hit_part = ~= part then
+		if hit_part ~= part then
 			local duplication = hit_part:Clone()
 			duplication.Parent = hit_part.Parent
 		end
 	end
 
 	if type == "deletion" then
-		if hit_part = ~= part then
+		if hit_part ~= part then
 			hit_part:Destroy()
 		end
 	end
