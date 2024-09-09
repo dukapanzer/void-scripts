@@ -29,14 +29,16 @@ remote.OnServerEvent:connect(function(player, hit_part, mouse_held)
 	if mouse_held then
 		image_label.ImageColor3 = Color3.new(1, 0, 0)
 		if hit_part and not part then
-			if hit_part:IsA("BasePart") then
+			if hit_part:IsA("BasePart") and not part then
 				hit_part.Anchored = true
 				hit_part.CFrame = cursor.CFrame
 			end
 		end
 	
 	else
-		hit_part.Anchored = false
+		if not part then
+			hit_part.Anchored = false
+		end
 		image_label.ImageColor3 = Color3.new(1, 1, 1)
 		--return
 	end
