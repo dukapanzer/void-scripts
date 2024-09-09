@@ -11,7 +11,7 @@ remote.Name = "remote"
 cursor.Parent = char
 local remote2 = Instance.new("RemoteEvent")
 local image_label = cursor:WaitForChild("BillboardGui"):WaitForChild("ImageLabel")
-image_label.Size = UDim2.new(3, 0, 3, 0)
+image_label.Size = UDim2.new(1, 0, 1, 0)
 image_label.Parent.Size = UDim2.new(3, 0, 3, 0)
 
 local previous_owner = nil
