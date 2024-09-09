@@ -24,6 +24,7 @@ local image_label = cursor:WaitForChild("BillboardGui"):WaitForChild("ImageLabel
 image_label.Size = UDim2.new(1, 0, 1, 0)
 image_label.Parent.Size = UDim2.new(3, 0, 3, 0)
 local objectValue = Instance.new("ObjectValue")
+objectValue.Parent = char
 objectValue.Value = part
 local remote3 = Instance.new("RemoteEvent")
 remote3.Parent = char
