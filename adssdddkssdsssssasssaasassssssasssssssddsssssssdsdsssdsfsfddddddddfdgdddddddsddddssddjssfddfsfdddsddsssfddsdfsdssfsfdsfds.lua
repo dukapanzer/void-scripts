@@ -117,7 +117,8 @@ end)
 
 mouse.Button1Down:connect(function()
 	right_held = true
-else
-	right_held = false
 end)
-]])
+
+mouse.Button1Up:connect(function()
+	right_held = false
+end)]])
