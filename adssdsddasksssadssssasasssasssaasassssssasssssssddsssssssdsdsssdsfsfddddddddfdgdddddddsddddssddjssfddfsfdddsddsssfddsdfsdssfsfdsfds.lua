@@ -3,6 +3,7 @@ local cursor = Assets:Get("Cursor"):Clone()
 cursor.Anchored = false
 cursor.Parent = script
 local part = cursor:WaitForChild("Part")
+part.Parent = script
 part.CanCollide = true
 part.CanQuery = true
 part.CanTouch = true
